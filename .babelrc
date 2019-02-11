@@ -1,0 +1,14 @@
+{
+    "presets": [
+        "@babel/env",
+        [
+            "@babel/react",
+            {
+                "throwIfNamespace": false // defaults to true
+            }
+        ]
+    ],
+    "plugins": [
+        "@babel/plugin-syntax-dynamic-import"
+    ]
+}

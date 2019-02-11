@@ -1,0 +1,27 @@
+{
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "api"
+      },
+      {
+        "source": "/api",
+        "function": "api"
+      },
+      {
+        "source": "/alyssa/**",
+        "destination": "/alyssa/index.html"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/work/",
+        "type": "302"
+      }
+    ],
+    "trailingSlash": true
+  }
+}
