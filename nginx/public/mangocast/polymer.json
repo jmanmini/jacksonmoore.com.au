@@ -1,0 +1,35 @@
+{
+  "lint": {
+    "rules": [
+      "polymer-2"
+    ]
+  },
+  "sources": [
+    "images/**/*",
+    "bower.json",
+    "src/**/*"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.js",
+    "mangocast.xml",
+    "bower.json",
+    "1400X1400.png",
+    "1920X1080.png"
+  ],
+  "builds": [{
+    "js": {
+      "minify": true
+    },
+    "css": {
+      "minify": true
+    },
+    "html": {
+      "minify": true
+    },
+    "bundle": true,
+    "addServiceWorker": false,
+    "addPushManifest": true,
+    "insertPrefetchLinks": true
+  }]
+}
