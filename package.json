@@ -9,7 +9,7 @@
   "scripts": {
     "start": "webpack --mode development",
     "build": "webpack --mode production",
-    "deploy": "webpack --mode production && firebase deploy --only=hosting",
+    "deploy": "webpack --mode production && git add * && git commit",
     "start:dev": "webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0"
   },
   "devDependencies": {
