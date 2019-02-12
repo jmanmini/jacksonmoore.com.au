@@ -1,6 +1,12 @@
 version: '3'
 services:
   api:
-    image: jacksonsamuelmoore/jacksonmoore.com.au:api
+    image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:api
   nginx:
-    image: jacksonsamuelmoore/jacksonmoore.com.au:nginx
+    image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:nginx
+  watchtower:
+    image: v2tec/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/jmanmini/.docker/config.json:/config.json
+    command: --interval 30
