@@ -3,6 +3,8 @@ services:
   api:
     build: ./api
     container_name: api
+    restart:
+      always
   nginx:
     build: ./nginx
     ports:
@@ -13,5 +15,4 @@ services:
     depends_on:
       - api
     container_name: nginx
-    
      
