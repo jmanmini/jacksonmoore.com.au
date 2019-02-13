@@ -743,7 +743,8 @@ api.post("/api/booking/mail", (request, response) => {
     }
 })
 api.get("**", (request, response) => {
-    console.log(request.path, request.ip, request.method)
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log(request.path, ip, request.method)
     response.send(403, "<h1>Forbidden</h1><p>You can't access this sector, and to be honest, that probably means there's nothing here. It's best if you went somewhere else please!</p></br>" + request.path)
 })
 api.listen(3000, () => console.log(`Mail app listening on port 3000`))
