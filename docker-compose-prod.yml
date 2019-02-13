@@ -4,9 +4,21 @@ services:
     image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:api
   nginx:
     image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:nginx
-  watchtower:
-    image: v2tec/watchtower
+  ouroboros:
+    image: circa10a/ouroboros
+    environment:
+      - REPO_USER=jacksonsamuelmoore
+      - REPO_PASS=Jdog20032003
+      - IGNORE=shadowbox
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/jmanmini/.docker/config.json:/config.json
-    command: --interval 30
+    command: --interval 30 --loglevel debug --keep-tag
+    container_name:  ouroboros
+  ouroboros-box:
+    image: circa10a/ouroboros
+    environment:
+      - MONITOR=shadowbox
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --loglevel debug --keep-tag
+    container_name:  ouroboros-box
