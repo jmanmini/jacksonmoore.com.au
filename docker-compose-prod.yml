@@ -12,7 +12,7 @@ services:
       - IGNORE=shadowbox
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --loglevel debug --keep-tag
+    command: --interval 30 --keep-tag
     container_name:  ouroboros
   ouroboros-box:
     image: circa10a/ouroboros
@@ -20,5 +20,5 @@ services:
       - MONITOR=shadowbox
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --loglevel debug --keep-tag
+    command: --interval 30 --keep-tag
     container_name:  ouroboros-box

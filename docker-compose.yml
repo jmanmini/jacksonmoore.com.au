@@ -15,4 +15,3 @@ services:
     depends_on:
       - api
     container_name: nginx
-     
