@@ -743,7 +743,7 @@ api.post("/api/booking/mail", (request, response) => {
     }
 })
 api.get("**", (request, response) => {
-    var ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+    var ip = request.headers['x-Real-IP']
     console.log(request.path, ip, request.method)
     response.send(403, "<h1>Forbidden</h1><p>You can't access this sector, and to be honest, that probably means there's nothing here. It's best if you went somewhere else please!</p></br>" + request.path)
 })
