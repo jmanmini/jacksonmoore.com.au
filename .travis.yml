@@ -16,5 +16,5 @@ script:
   - curl -sSk -D - "localhost/" | tac | tac | grep -q 301
   - curl -sSk -D - "https://localhost/work/" | tac | tac | grep -q 200
   - curl -sSk -D - "https://localhost/api/" | tac | tac | grep -q 403
-after_deploy:
+after_success:
   - curl -X POST "https://cloud.docker.com/api/build/v1/source/326183ac-ee01-4586-9c92-2e80982d44f6/trigger/9113dc4c-496c-4041-88cc-7cbae07b77d6/call/"
