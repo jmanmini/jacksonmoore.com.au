@@ -2,18 +2,21 @@ version: '3'
 services:
   api:
     image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:api
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
   nginx:
     image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:nginx
-  ouroboros:
-    image: circa10a/ouroboros
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+  watchtower:
+    image: v2tec/watchtower
     environment:
       - REPO_USER=jacksonsamuelmoore
-      - REPO_PASS=Jdog20032003
-      - IGNORE=shadowbox
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --keep-tag
-    container_name:  ouroboros
+      - /home/jmanmini/.docker/config.json:/config.json
+    command: --interval 30 --label-enable --debug
+    container_name:  watchtower
     restart:
       always
   ouroboros-box:
@@ -24,5 +27,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30 --keep-tag
     container_name:  ouroboros-box
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
     restart:
       always
