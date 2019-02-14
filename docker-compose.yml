@@ -7,11 +7,11 @@ services:
       always
   nginx:
     build: ./nginx
-    ports:
-      - "80:80"
-      - "443:443"
     restart:
       always
     depends_on:
       - api
+    ports:
+      - "80:80"
+      - "443:443"
     container_name: nginx
