@@ -1,0 +1,18 @@
+sudo: required
+
+language: node_js
+
+services:
+  - docker
+
+install: true
+
+before_script:
+  - docker-compose up -d --build
+
+script:
+  - docker ps | grep -q api
+  - docker ps | grep -q nginx
+  - curl -sSk -D - "localhost/" | tac | tac | grep -q 301
+  - curl -sSk -D - "https://localhost/work/" | tac | tac | grep -q 200
+  - curl -sSk -D - "https://localhost/api/" | tac | tac | grep -q 403
