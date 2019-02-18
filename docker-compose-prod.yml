@@ -31,3 +31,14 @@ services:
       com.centurylinklabs.watchtower.enable: "false"
     restart:
       always
+  datadog:
+    image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:datadog
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    environment:
+      - DD_API_KEY=6592e0401695eb63273093c84550f096
+    container_name:  datadog
+
+              
