@@ -2,6 +2,6 @@ init_config:
 
 instances:
 
-  - nginx_status_url: http://localhost/nginx_status/
+  - nginx_status_url: https://localhost/nginx_status/
     tags:
       - instance:nginx
