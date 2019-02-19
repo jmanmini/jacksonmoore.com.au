@@ -1,3 +1,3 @@
 FROM datadog/agent:latest
 
-ADD conf.d conf.d
+ADD conf.d /etc/datadog-agent/conf.d/
