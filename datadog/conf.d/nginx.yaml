@@ -1,0 +1,7 @@
+init_config:
+
+instances:
+
+  - nginx_status_url: https://jacksonmoore.com.au/nginx_status/
+    tags:
+      - instance:nginx
