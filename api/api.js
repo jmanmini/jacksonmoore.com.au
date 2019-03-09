@@ -3,7 +3,14 @@ const nodemailer = require("nodemailer")
 
 var cors = require('cors')
 var bodyParser = require('body-parser')
+var admin = require("firebase-admin");
 
+var serviceAccount = require("./admin_sdk.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://booking-7639c.firebaseio.com"
+});
 const api = express();
 
 api.use(bodyParser.urlencoded({
@@ -31,9 +38,11 @@ api.post("/api/booking/mail", (request, response) => {
     var guests = request.body.guests;
     var booking_number = request.body.key;
     var cost = request.body.cost;
+    var token = request.body.token
     const mailOptions = {
         from: '"Anglsea Booking" <jacksonsamuelmoore@gmail.com>',
-        to: request.body.email + ", jacksonsamuelmoore@gmail.com",
+        to: request.body.email,
+        bcc: "jacksonsamuelmoore@gmail.com",
         subject: 'Booking Confirmation',
         html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0040)file:///D:/jacks/Desktop/mail%202.0.html -->
@@ -744,14 +753,27 @@ api.post("/api/booking/mail", (request, response) => {
 
 </body></html>`,
     };
+    admin.auth().verifyIdToken(token)
+        .then(function (decodedToken) {
+            var uid = decodedToken.uid;
+            admin.auth().getUser(uid)
+                .then(function (userRecord) {
+                    console.log("Successfully fetched user data:", userRecord.toJSON().email);
+                    console.log(uid)
+                })
+        })
     if (name && from_date && to_date && guests && booking_number && cost) {
-        mailTransport.sendMail(mailOptions)
-        response.send(200, "Mail Sent");
+        //mailTransport.sendMail(mailOptions)
+        response.status(200).send("Mail Sent")
+        console.log('Email sent')
     } else {
-        response.send(400, "Bad Request")
+        console.log(name, from_date, to_date, guests, booking_number, cost)
+        response.status(400).send("Bad Request")
+        console.log('Bad request made')
     }
 })
 api.get("**", (request, response) => {
-    response.send(403, "<h1>Forbidden</h1><p>You can't access this sector, and to be honest, that probably means there's nothing here. It's best if you went somewhere else please!</p></br>" + request.path)
+    response.status(403).send("<h1>Forbidden</h1><p>You can't access this sector, and to be honest, that probably means there's nothing here. It's best if you went somewhere else please!</p></br>" + request.path)
+    console.log('Forbiden sector requested')
 })
 api.listen(3000, () => console.log(`Mail app listening on port 3000`))

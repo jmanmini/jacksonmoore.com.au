@@ -235,20 +235,24 @@ class BookStepper extends React.Component {
             "guests": this.state.guests,
             "cost": this.state.cost
         })
-        axios({
-            url: '/booking/mail',
-            method: 'post',
-            baseURL: 'https://jacksonmoore.com.au/api/',
-            data: {
-                name: this.state.name,
-                email: this.state.email,
-                guests: this.state.guests,
-                from: this.state.fromDate.format('YYYY-MM-DD'),
-                to: this.state.toDate.format('YYYY-MM-DD'),
-                key: keyRef.key,
-                cost: this.state.cost
-            },
+        firebase.auth().currentUser.getIdToken().then((token) => {
+            axios({
+                url: '/booking/mail',
+                method: 'post',
+                baseURL: 'https://jacksonmoore.com.au/api/',
+                data: {
+                    name: this.state.name,
+                    email: this.state.email,
+                    guests: this.state.guests,
+                    from: this.state.fromDate.format('YYYY-MM-DD'),
+                    to: this.state.toDate.format('YYYY-MM-DD'),
+                    key: keyRef.key,
+                    cost: this.state.cost,
+                    userToken: token,
+                },
+            })
         })
+        
 
     }
     render() {
