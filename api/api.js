@@ -32,19 +32,29 @@ api.use(function (req, res, next) {
 
 api.use(bodyParser.json())
 api.post("/api/booking/mail", (request, response) => {
-    var name = request.body.name;
-    var from_date = request.body.from;
-    var to_date = request.body.to;
-    var guests = request.body.guests;
-    var booking_number = request.body.key;
-    var cost = request.body.cost;
+    console.log(Date(new Date))
     var token = request.body.token
-    const mailOptions = {
-        from: '"Anglsea Booking" <jacksonsamuelmoore@gmail.com>',
-        to: request.body.email,
-        bcc: "jacksonsamuelmoore@gmail.com",
-        subject: 'Booking Confirmation',
-        html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    admin.auth().verifyIdToken(token)
+        .then(function (decodedToken) {
+            var uid = decodedToken.uid;
+            admin.auth().getUser(uid)
+                .then(function (userRecord) {
+                    console.log("Successfully fetched user data:", userRecord.toJSON().displayName);
+                    console.log(uid)
+                    var name = userRecord.toJSON().displayName
+                    var email = userRecord.toJSON().email
+                    var booking_number = request.body.key
+                    admin.database().ref("bookings/" + booking_number).once("value").then((snapshot) => {
+                        var from_date = snapshot.child("from").val();
+                        var to_date = snapshot.child("to").val();
+                        var guests = snapshot.child("guests").val();
+                        var cost = snapshot.child("cost").val();
+                        const mailOptions = {
+                            from: '"Anglsea Booking" <jacksonsamuelmoore@gmail.com>',
+                            to: email,
+                            bcc: "jacksonsamuelmoore@gmail.com",
+                            subject: 'Booking Confirmation',
+                            html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0040)file:///D:/jacks/Desktop/mail%202.0.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -752,25 +762,35 @@ api.post("/api/booking/mail", (request, response) => {
 
 
 </body></html>`,
-    };
-    admin.auth().verifyIdToken(token)
-        .then(function (decodedToken) {
-            var uid = decodedToken.uid;
-            admin.auth().getUser(uid)
-                .then(function (userRecord) {
-                    console.log("Successfully fetched user data:", userRecord.toJSON().email);
-                    console.log(uid)
+                        };
+                        if (name && from_date && to_date && guests && booking_number && cost) {
+                            mailTransport.sendMail(mailOptions)
+                            response.status(200).send("Mail Sent")
+                            console.log('Email sent')
+                        } else {
+                            console.log(name, email, from_date, to_date, guests, booking_number, cost, token)
+                            response.status(400).send("Bad Request")
+                            console.log('Bad request made')
+                        }
+                    }).catch((error) => {
+                        console.log(name, email, booking_number, token)
+                        console.log(error)
+                        response.status(400).send("Bad Request")
+                        console.log('Bad request made')
+                    })
+                }).catch((error) => {
+                    console.log(uid, token)
+                    console.log(error)
+                    response.status(400).send("Bad Request")
+                    console.log('Bad request made')
                 })
+        }).catch((error) => {
+            console.log(token)
+            console.log(error)
+            response.status(400).send("Bad Request")
+            console.log('Bad request made')
         })
-    if (name && from_date && to_date && guests && booking_number && cost) {
-        //mailTransport.sendMail(mailOptions)
-        response.status(200).send("Mail Sent")
-        console.log('Email sent')
-    } else {
-        console.log(name, from_date, to_date, guests, booking_number, cost)
-        response.status(400).send("Bad Request")
-        console.log('Bad request made')
-    }
+
 })
 api.get("**", (request, response) => {
     response.status(403).send("<h1>Forbidden</h1><p>You can't access this sector, and to be honest, that probably means there's nothing here. It's best if you went somewhere else please!</p></br>" + request.path)
