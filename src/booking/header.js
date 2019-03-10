@@ -175,7 +175,6 @@ export default class Header extends React.Component {
                             </IconButton>
                         </div>
                         <div style={menuItemStyleLeftMobile}>
-                            Booking
                         </div>
                         {this.state.user ?
                             <Button onClick={this.logout}>Log Out</Button>

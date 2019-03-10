@@ -16,3 +16,5 @@ Gottta figure out some password stuff first.
 - [x] Setup TravisCI with tests using curl and grep
 - [x] Set up hooks to build on docker
 - [ ] Figure out a way to remove all password/keys used in raw code
+
+This branch is currently in progress. It is only being used for testing purposes, and only localy.
