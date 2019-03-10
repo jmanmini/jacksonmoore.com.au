@@ -242,7 +242,7 @@ class BookStepper extends React.Component {
                 baseURL: 'https://jacksonmoore.com.au/api/',
                 data: {
                     key: keyRef.key,
-                    userToken: token,
+                    token: token,
                 },
             })
         })
