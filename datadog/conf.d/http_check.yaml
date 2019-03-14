@@ -1,0 +1,5 @@
+init_config:
+instances:
+  - name: Website_home
+    url: http://jacksonmoore.com.au
+    timeout: 1
