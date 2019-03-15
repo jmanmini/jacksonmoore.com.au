@@ -2,4 +2,4 @@ init_config:
 instances:
   - name: Website_home
     url: https://jacksonmoore.com.au
-    timeout: 1
+    check_certificate_expiration: true

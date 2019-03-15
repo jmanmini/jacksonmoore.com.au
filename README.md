@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/jmanmini/jacksonmoore.com.au.svg?token=JoZk3BwxhGGsHyNskNSA&branch=master)](https://travis-ci.com/jmanmini/jacksonmoore.com.au)
 
 Maybe one day we'll go open source.
-Gottta figure out some password stuff first.
+Gotta figure out some password stuff first.
 
 ## TODO
 
@@ -16,5 +16,3 @@ Gottta figure out some password stuff first.
 - [x] Setup TravisCI with tests using curl and grep
 - [x] Set up hooks to build on docker
 - [ ] Figure out a way to remove all password/keys used in raw code
-
-This branch is currently in progress. It is only being used for testing purposes, and only localy.
