@@ -12,10 +12,10 @@ compose-up:
     - docker-compose up -d --build
     - docker ps | grep api
     - docker ps | grep nginx
-    - docker exex nginx apk add --update curl
-    - docker exex nginx curl -sSk -D - "localhost/" | tac | tac | grep -q 301
-    - docker exex nginx curl -sSk -D - "https://localhost/work/" | tac | tac | grep -q 200
-    - docker exex nginx curl -sSk -D - "https://localhost/api/" | tac | tac | grep -q 403
+    - docker exec nginx apk add --update curl
+    - docker exec nginx curl -sSk -D - "localhost/" | tac | tac | grep -q 301
+    - docker exec nginx curl -sSk -D - "https://localhost/work/" | tac | tac | grep -q 200
+    - docker exec nginx curl -sSk -D - "https://localhost/api/" | tac | tac | grep -q 403
 registry:
   stage: deploy
   script:
