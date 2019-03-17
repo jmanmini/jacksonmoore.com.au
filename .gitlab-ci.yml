@@ -3,7 +3,6 @@ services:
   - docker:dind
 stages:
   - build
-  - test
   - deploy
 compose-up:
   stage: build
@@ -11,9 +10,6 @@ compose-up:
     - apk add --no-cache py-pip
     - pip install docker-compose
     - docker-compose up -d --build
-ping-test:
-  stage: test
-  script:
     - docker ps | grep -q api
     - docker ps | grep -q nginx
     - curl -sSk -D - "localhost/" | tac | tac | grep -q 301
