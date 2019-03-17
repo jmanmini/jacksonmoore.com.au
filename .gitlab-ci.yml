@@ -19,7 +19,7 @@ compose-up:
 registry:
   stage: deploy
   script:
-    - docker login -u jmanmini -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker login -u jmanmini -p $CI_JOB_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx ./nginx
     - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx
     - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/api ./api
