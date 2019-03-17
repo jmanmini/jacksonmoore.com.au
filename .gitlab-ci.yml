@@ -12,7 +12,6 @@ compose-up:
     - docker-compose up -d --build
     - docker ps | grep api
     - docker ps | grep nginx
-    - docker ps | grep datadog
     - curl -sSk -D - "localhost/" | tac | tac | grep -q 301
     - curl -sSk -D - "https://localhost/work/" | tac | tac | grep -q 200
     - curl -sSk -D - "https://localhost/api/" | tac | tac | grep -q 403
