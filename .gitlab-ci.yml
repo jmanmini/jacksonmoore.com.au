@@ -1,0 +1,29 @@
+image: docker:stable
+services:
+  - docker:dind
+stages:
+  - build
+  - test
+  - deploy
+compose-up:
+  stage: build
+  script:
+    - docker-compose up -d --build
+ping-test:
+  stage: test
+  script:
+    - docker ps | grep -q api
+    - docker ps | grep -q nginx
+    - curl -sSk -D - "localhost/" | tac | tac | grep -q 301
+    - curl -sSk -D - "https://localhost/work/" | tac | tac | grep -q 200
+    - curl -sSk -D - "https://localhost/api/" | tac | tac | grep -q 403
+registry:
+  stage: deploy
+  script:
+    - docker login -u jmanmini -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx ./nginx
+    - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx
+    - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/api ./api
+    - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/api
+  only:
+    - master

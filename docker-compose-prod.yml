@@ -1,11 +1,11 @@
 version: "3"
 services:
   api:
-    image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:api
+    image: registry.gitlab.com/jmanmini/jacksonmoore-com-au/api
     labels:
       com.centurylinklabs.watchtower.enable: "true"
   nginx:
-    image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:nginx
+    image: registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx
     labels:
       com.centurylinklabs.watchtower.enable: "true"
   watchtower:
@@ -30,7 +30,7 @@ services:
       com.centurylinklabs.watchtower.enable: "false"
     restart: always
   datadog:
-    image: index.docker.io/jacksonsamuelmoore/jacksonmoore.com.au:datadog
+    image: registry.gitlab.com/jmanmini/jacksonmoore-com-au/datadog
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro
@@ -38,4 +38,6 @@ services:
     environment:
       - DD_API_KEY=6592e0401695eb63273093c84550f096
     container_name: datadog
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
     restart: always
