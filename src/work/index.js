@@ -20,7 +20,7 @@ function App() {
     return (
         <div style={{ overflowX: 'hidden' }}>
             <SvgEl></SvgEl>
-            <div style={{ width: '100vw', height: '100vh', zIndex: '2' }}>
+            <div style={{ width: '100vw', height: '90vh', zIndex: '2' }}>
                 <div style={{ display: 'flex', alignItems: 'center', width: '100vw', height: '100vh', justifyContent: 'center', zIndex: '2', position: 'relative' }}>
                     <div style={{ margin: '16px' }}>
                         <h1 style={{ fontSize: '70px', fontFamily: 'spartan', color: 'rgb(255, 198, 80)' }}>
