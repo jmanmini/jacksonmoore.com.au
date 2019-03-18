@@ -15,7 +15,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/jmanmini/.docker/config.json:/config.json
-    command: --interval 30 --label-enable --debug
+    command: --interval 30 --label-enable
     container_name: watchtower
     restart: always
   ouroboros-box:

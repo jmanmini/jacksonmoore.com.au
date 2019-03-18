@@ -24,5 +24,7 @@ registry:
     - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx
     - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/api ./api
     - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/api
+    - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/datadog ./datadog
+    - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/datadog
   only:
     - master
