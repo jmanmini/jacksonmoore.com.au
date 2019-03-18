@@ -5,4 +5,4 @@ instances:
     check_certificate_expiration: true
   - name: Website_api
     url: https://jacksonmoore.com.au/api/
-    http_response_status_code: 502
+    http_response_status_code: 403
