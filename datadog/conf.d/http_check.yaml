@@ -3,3 +3,5 @@ instances:
   - name: Website_home
     url: https://jacksonmoore.com.au
     check_certificate_expiration: true
+  - name: Website_api
+    url: https://jacksonmoore.com.au/api/
