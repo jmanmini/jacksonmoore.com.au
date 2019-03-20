@@ -26,7 +26,7 @@ export default function Portfolio() {
                         </CardContent>
                     </CardActionArea>
                 </Card>
-                <div style={{ maxWidth: '500px', height: '200px', overflow: 'wrap', flex: '1 0 280px' }}>
+                <div style={{ maxWidth: '500px', height: '200px', overflow: 'wrap', flex: '1 0 300px', margin: '8px', fontFamily: 'Roboto' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel neque in libero facilisis vulputate. Etiam eu mauris eu est rhoncus rutrum eu nec enim. Phasellus efficitur lacus vel purus gravida, varius congue ipsum gravida. Nulla aliquam, augue vitae ultrices maximus, elit enim congue leo, eu bibendum risus quam a sem. Nam non molestie nibh. Quisque eros dui, cursus a felis euismod, finibus blandit leo. Nullam et tellus non urna volutpat dignissim. Cras varius viverra elit a convallis. Curabitur pretium scelerisque nisi, vel varius eros pretium porttitor. Pellentesque ac turpis ornare, ornare lacus sit amet, tempus nunc.
                 </div>
             </div>

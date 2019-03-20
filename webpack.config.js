@@ -12,23 +12,21 @@ module.exports = [{
             loader: 'babel-loader',
         },
         {
-            test: /\.(png|jpg|gif|JPG)$/,
+            test: /\.(png|jpg|gif|JPG|svg)$/,
             loaders: [
                 'file-loader'
             ]
         }
         ]
     },
-    devServer: {
-        historyApiFallback: {
-            index: "alyssa/index.html"
-        },
-    },
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
     devServer: {
         contentBase: './nginx/public',
+        historyApiFallback: {
+            index: '/alyssa/index.html'
+        },
     }
 },
 {
@@ -57,14 +55,14 @@ module.exports = [{
         },
         ]
     },
-    devServer: {
-        historyApiFallback: true,
-    },
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
     devServer: {
         contentBase: './nginx/public',
+        historyApiFallback: {
+            index: '/work/index.html'
+        },
     }
 },
 {
@@ -93,19 +91,14 @@ module.exports = [{
         },
         ]
     },
-    devServer: {
-        historyApiFallback: {
-            rewrites: [{
-                from: /^\/booking/,
-                to: '/nginx/public/booking/index.html'
-            },]
-        }
-    },
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
     devServer: {
         contentBase: './nginx/public',
+        historyApiFallback: {
+            index: '/booking/index.html'
+        },
     }
 },
 ];
