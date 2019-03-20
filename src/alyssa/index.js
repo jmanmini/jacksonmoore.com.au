@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from './header'
 const Home = lazy(() => import('./home'));
 const Portfolio = lazy(() => import('./portfolio'));
+const Shop = lazy(() => import('./shop'));
 const mainStyles = {
     paddingTop: '64px'
 }
@@ -42,11 +43,5 @@ function Main() {
         </main>
     )
 }
-function Shop() {
-    return (
-        <div style={mainStyles}>
-            Shop here
-        </div>
-    )
-}
+
 
