@@ -9,12 +9,12 @@
   "scripts": {
     "build": "webpack --mode production",
     "deploy": "webpack --mode production && git add * && git commit -m \"Auto commit on %date%\" && git push origin master",
-    "start:dev": "webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0"
+    "start:dev": "webpack-dashboard -- webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.0",
+    "@babel/core": "^7.4.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.1",
     "css-loader": "^2.1.0",
@@ -25,6 +25,7 @@
     "webp-loader": "^0.4.0",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
+    "webpack-dashboard": "^3.0.0",
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
