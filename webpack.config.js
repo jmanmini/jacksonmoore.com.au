@@ -1,3 +1,4 @@
+const DashboardPlugin = require('webpack-dashboard/plugin');
 module.exports = [{
     entry: './src/alyssa/index.js',
     output: {
@@ -27,7 +28,10 @@ module.exports = [{
         historyApiFallback: {
             index: '/alyssa/index.html'
         },
-    }
+    },
+    plugins: [
+        new DashboardPlugin(),
+    ],
 },
 {
     entry: './src/work/index.js',
