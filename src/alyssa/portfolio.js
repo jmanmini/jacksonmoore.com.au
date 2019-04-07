@@ -22,7 +22,7 @@ export default function Portfolio() {
                     right: "0px",
                 }}
             ></ScrollingColorBackground>
-            <div style={{ marginTop: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: 'calc(100vh - 64px)' }} data-background-color='rgb(255, 255, 255)' className='js-color-stop'>
+            <div style={{ paddingTop: '64px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: 'calc(100vh - 64px)' }} data-background-color='rgb(255, 255, 255)' className='js-color-stop'>
                 <div style={{ maxWidth: '1150px', display: 'flex', flexWrap: 'wrap' }}>
                     <Card style={{ maxWidth: '350px', minWidth: '350px', backgroundColor: 'white', margin: '8px', borderRadius: '12px' }}>
                         <CardActionArea>

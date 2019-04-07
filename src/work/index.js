@@ -14,7 +14,7 @@ render((
     <App />
 ), document.getElementById('root'));
 
-ReactGA.initialize('UA-79749625-4');
+ReactGA.initialize('UA-137867150-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 function App() {
     return (
@@ -42,7 +42,7 @@ function App() {
             </div>
             <div style={{ minHeight: '100vh' }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', width: '100vw', height: '100vh', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Card style={{maxWidth: '345px', backgroundColor: 'white', zIndex: '2', margin: '8px', webkitTransform: 'translate3d(0,0,0)'}}>
+                    <Card style={{ maxWidth: '345px', backgroundColor: 'white', zIndex: '2', margin: '8px', webkitTransform: 'translate3d(0,0,0)' }}>
                         <CardActionArea>
                             < CardMedia
                                 component='img'
@@ -68,7 +68,7 @@ function App() {
                             </Button>
                         </CardActions>
                     </Card>
-                    <Card style={{ maxWidth: '345px', backgroundColor: 'white', zIndex: '2', margin: '8px', webkitTransform: 'translate3d(0,0,0)'}}>
+                    <Card style={{ maxWidth: '345px', backgroundColor: 'white', zIndex: '2', margin: '8px', webkitTransform: 'translate3d(0,0,0)' }}>
                         <CardActionArea>
                             <CardMedia
                                 component='img'
@@ -111,7 +111,7 @@ function App() {
                                 </Typography>
                                 <Typography component="p" style={{ fontFamily: 'indiference' }}>
                                     Is you child interested in coding or computer science? How about building websites or apps?  I offer lessons in many programming languages for kids aged 7-12, and have much experience building apps and websites myself
-        
+
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

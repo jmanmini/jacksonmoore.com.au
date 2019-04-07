@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "deploy": "webpack --mode production && git add * && git commit -m \"Auto commit on %date%\" && git push origin master",
-    "start:dev": "webpack-dashboard -- webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0"
+    "start:dev": "webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
