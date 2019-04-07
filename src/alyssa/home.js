@@ -76,42 +76,37 @@ function PortfolioBrief() {
             width: '100%',
             textAlign: 'left',
             fontFamily: 'Comfortaa, cursive',
-            paddingBottom: '16px'
+            paddingBottom: '16px',
+            borderRadius: '12px'
         }}>
             <TrackVisibility>
                 {({ isVisible }) => <Fade in={isVisible} {...(isVisible ? { timeout: 1000 } : {})}><h1 style={{ marginLeft: '10%' }}>Portfolio Work</h1></Fade>}
             </TrackVisibility>
 
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', textAlign: 'left', paddingLeft: '20px', paddingRight: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center', flexWrap: 'wrap', textAlign: 'left', paddingLeft: '20px', paddingRight: '20px' }}>
                 <TrackVisibility offset={400}>
-                    <PortfolioCard
+                    <PortfolioCardHome
                         duration={500}
                         num={1}
-                    ></PortfolioCard>
+                    ></PortfolioCardHome>
                 </TrackVisibility>
                 <TrackVisibility offset={400}>
-                    <PortfolioCard
+                    <PortfolioCardHome
                         duration={1000}
                         num={2}
-                    ></PortfolioCard>
+                    ></PortfolioCardHome>
                 </TrackVisibility>
                 <TrackVisibility offset={400}>
-                    <PortfolioCard
+                    <PortfolioCardHome
                         duration={1500}
                         num={3}
-                    ></PortfolioCard>
-                </TrackVisibility>
-                <TrackVisibility offset={400}>
-                    <PortfolioCard
-                        duration={2000}
-                        num={4}
-                    ></PortfolioCard>
+                    ></PortfolioCardHome>
                 </TrackVisibility>
             </div>
         </div >
     )
 }
-class PortfolioCard extends React.Component {
+class PortfolioCardHome extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -142,30 +137,26 @@ class PortfolioCard extends React.Component {
 
                 <Card style={{ maxWidth: '350px', backgroundColor: 'white', margin: '8px', WebkitTransform: 'translate3d(0,0,0)', marginBottom: '20px', borderRadius: '12px' }}>
                     <CardActionArea>
-                        <CardMedia
-                            component='img'
-                            image={require("./" + this.state.image)}
-                            height="200"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="title" component="h2" style={{ fontFamily: 'Comfortaa, cursive', fontWeight: 'bold' }}>
-                                {this.state.title}
-                            </Typography>
-                            <Typography style={{ fontFamily: 'Comfortaa, cursive', marginBottom: 12, }} color="textSecondary">
-                                £{this.state.price}
-                            </Typography>
-                            <Typography component="p" style={{ fontFamily: 'Roboto' }}>
-                                {this.state.description}
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                    <CardActions>
                         <Link to={`/portfolio`} style={{ textDecoration: 'none' }}>
-                            <Button size="small">
-                                See in Portfolio
-                            </Button>
+                            <CardMedia
+                                component='img'
+                                image={require("./" + this.state.image)}
+                                height='194'
+                                width='344'
+                            />
+                            <CardContent style={{ padding: '16px' }}>
+                                <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: 'Comfortaa, cursive', fontWeight: 'bold' }}>
+                                    {this.state.title}
+                                </Typography>
+                                <Typography style={{ fontFamily: 'Comfortaa, cursive', marginBottom: 12, }} color="textSecondary">
+                                    £{this.state.price}
+                                </Typography>
+                                <Typography component="p" style={{ fontFamily: 'Roboto' }}>
+                                    {this.state.description}
+                                </Typography>
+                            </CardContent>
                         </Link>
-                    </CardActions>
+                    </CardActionArea>
                 </Card>
             </Grow >
         )

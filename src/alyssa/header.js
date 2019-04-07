@@ -179,14 +179,12 @@ export default class Header extends React.Component {
             return (
 
                 <header>
-                    <Fab style={{ position: "fixed", bottom: '20px', right: '20px', zIndex: '3' }} onClick={() => this.setState({ open: true })}>
-                        <MenuIcon />
-                    </Fab>
                     <SwipeableDrawer
                         anchor='bottom'
                         open={this.state.open}
                         onClose={() => this.setState({ open: false })}
                         onOpen={() => this.setState({ open: true })}
+                        style={{borderRadius: '12px'}}
                     >
                         <div>
                             <List>
