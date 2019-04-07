@@ -8,6 +8,7 @@ compose-up:
   stage: build
   script:
     - apk add build-base
+    - apk add python3-dev
     - apk add --no-cache py-pip
     - pip install docker-compose
     - docker-compose up -d --build
