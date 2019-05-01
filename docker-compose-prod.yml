@@ -14,14 +14,14 @@ services:
       - REPO_USER=jacksonsamuelmoore
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/jmanmini/.docker/config.json:/config.json
+      - /home/jacks/.docker/config.json:/config.json
     command: --interval 30 --label-enable
     container_name: watchtower
     restart: always
   ouroboros-box:
     image: circa10a/ouroboros
     environment:
-      - MONITOR=shadowbox
+      - MONITOR=shadowsocks
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 30 --keep-tag
@@ -41,3 +41,14 @@ services:
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     restart: always
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev
+    ports:
+      - "8388:8388"
+    environment:
+      - METHOD=aes-256-gcm
+      - PASSWORD=9MLSpPmNt
+    restart: always
+    container_name: shadowsocks
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
