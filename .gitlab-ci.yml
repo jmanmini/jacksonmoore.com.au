@@ -7,8 +7,7 @@ stages:
 compose-up:
   stage: build
   script:
-    - apk add libssl-dev
-    - apk add build-base musl-dev python2-dev libffi-dev 
+    - apk add build-base musl-dev python2-dev libffi-dev openssl-dev
     - apk add --no-cache py-pip
     - pip install docker-compose
     - docker-compose up -d --build
