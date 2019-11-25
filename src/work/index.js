@@ -18,10 +18,10 @@ ReactGA.initialize('UA-137867150-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 function App() {
     return (
-        <div style={{ overflowX: 'hidden' }}>
+        <div style={{ fontDisplay: 'swap' }}>
             <SvgEl></SvgEl>
-            <div style={{ width: '100vw', height: '90vh', zIndex: '2' }}>
-                <div style={{ display: 'flex', alignItems: 'center', width: '100vw', height: '100vh', justifyContent: 'center', zIndex: '2', position: 'relative' }}>
+            <div style={{ width: '100%', height: '90vh', zIndex: '2' }}>
+                <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100vh', justifyContent: 'center', zIndex: '2', position: 'relative' }}>
                     <div style={{ margin: '16px' }}>
                         <h1 style={{ fontSize: '70px', fontFamily: 'spartan', color: 'rgb(255, 198, 80)' }}>
                             Jackson Moore
@@ -41,12 +41,12 @@ function App() {
                 </div>
             </div>
             <div style={{ minHeight: '100vh' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', width: '100vw', height: '100vh', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', width: '100%', height: '100vh', justifyContent: 'center', flexWrap: 'wrap' }}>
                     <Card style={{ maxWidth: '345px', backgroundColor: 'white', zIndex: '2', margin: '8px', webkitTransform: 'translate3d(0,0,0)' }}>
                         <CardActionArea>
                             < CardMedia
                                 component='img'
-                                image={require('./babysitting.jpg')}
+                                image={require('./babysitting.webp')}
                                 title="Babysitting"
                                 height="230"
                             />
@@ -72,7 +72,7 @@ function App() {
                         <CardActionArea>
                             <CardMedia
                                 component='img'
-                                image={require('./tech help.jpg')}
+                                image={require('./tech help.webp')}
                                 title="Tech Help"
                                 height="230"
                             />
@@ -98,11 +98,11 @@ function App() {
                         <CardActionArea>
                             <CardMedia
                                 component='img'
-                                image={require('./coding.jpg')}
+                                image={require('./coding.webp')}
                                 title="Coding"
                                 height="230"
                             />
-                            <CardContent style={{ paddingBottom: '56px' }}>
+                            <CardContent style={{ paddingBottom: '36px' }}>
                                 <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: 'spartan', color: 'rgb(255, 198, 80)' }}>
                                     Kids Coding Classes
                                 </Typography>
