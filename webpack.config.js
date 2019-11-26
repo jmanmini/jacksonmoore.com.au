@@ -1,4 +1,6 @@
+var webpack = require('webpack');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = [{
     entry: './src/alyssa/index.js',
     output: {
@@ -67,7 +69,15 @@ module.exports = [{
         historyApiFallback: {
             index: '/work/index.html'
         },
-    }
+    },
+    plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new BundleAnalyzerPlugin({
+            'analyzerMode': 'static',
+            'reportFilename': __dirname + '/reports/'
+
+        })
+    ]
 },
 {
     entry: './src/booking/index.js',

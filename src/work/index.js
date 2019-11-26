@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import ReactGA from 'react-ga';
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -17,8 +18,9 @@ render((
 ReactGA.initialize('UA-137867150-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 function App() {
-    return (
+    return (    
         <div style={{ fontDisplay: 'swap' }}>
+            <CssBaseline />
             <SvgEl></SvgEl>
             <div style={{ width: '100%', height: '90vh', zIndex: '2' }}>
                 <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100vh', justifyContent: 'center', zIndex: '2', position: 'relative' }}>

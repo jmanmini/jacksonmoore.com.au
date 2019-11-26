@@ -15,3 +15,5 @@
 - [x] Move to gitlab
 - [x] Ditch Docker Hub
 - [x] Ditch TavisCI
+- [ ] Optimize Webpack Builds
+- [ ] Move to NextJS/Gatsby
