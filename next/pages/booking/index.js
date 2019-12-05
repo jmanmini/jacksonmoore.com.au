@@ -1,49 +1,33 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import Header from './header'
-import Booking from './booking'
-import firebase from 'firebase/app';
+import Header from '../../src/header'
+import Booking from './book'
+import Head from 'next/head'
 import '@firebase/auth';
-import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+
+
 const mainStyles = {
     marginTop: '64px',
     fontFamily: 'Roboto, sans-serif'
 }
-var config = {
-    apiKey: "-",
-    authDomain: "booking-7639c.firebaseapp.com",
-    databaseURL: "https://booking-7639c.firebaseio.com",
-    projectId: "booking-7639c",
-    storageBucket: "booking-7639c.appspot.com",
-    messagingSenderId: "54189841386"
-};
-firebase.initializeApp(config);
-render((
-    <BrowserRouter basename={'/booking/'}>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-            <App />
-        </MuiPickersUtilsProvider>
-    </BrowserRouter>
-), document.getElementById('root'));
-function App() {
+
+
+
+function MainPage() {
     return (
         <div>
+            <Head>
+                <title>Anglsea Booking</title>
+                <meta charSet="utf-8" />
+                <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+                />
+            </Head>
             <Header></Header>
-            <Main style={mainStyles}></Main>
+            <Home style={mainStyles}></Home>
         </div>)
 }
-function Main() {
-    return (
-        <main>
-            <Switch>
-                <Route exact path={`/`} component={Home} />
-                <Route path={`/book`} component={Book} />
-            </Switch>
-        </main>
-    )
-}
+
 function Home() {
     return (
         <div style={mainStyles} >
@@ -56,7 +40,7 @@ function Home() {
                 <br /> This small but cozy beach house has four bedrooms, one bathroom and a small living area</p>
 
                     </article>
-                    <div style={{ "backgroundImage": "url(" + require("./beach-min.jpg") + ")", "height": "100vh", "backgroundAttachment": "fixed", "backgroundPosition": "center", "backgroundRepeat": "no-repeat", "backgroundSize": "cover" }}></div>
+                    <div style={{ "backgroundImage": "url(./beach-min.jpg)", "height": "100vh", "backgroundAttachment": "fixed", "backgroundPosition": "center", "backgroundRepeat": "no-repeat", "backgroundSize": "cover" }}></div>
                 </section>
                 <section>
                     <article style={{ backgroundColor: "#eee", "paddingTop": "100px", "paddingBottom": "100px", "marginLeft": "auto", "marginRight": "auto" }}>
@@ -67,7 +51,7 @@ function Home() {
                 get going.</p>
 
                     </article>
-                    <div style={{ "backgroundImage": "url(" + require("./fire-min.jpg") + ")", "height": "100vh", "backgroundAttachment": "fixed", "backgroundPosition": "center", "backgroundRepeat": "no-repeat", "backgroundSize": "cover" }}></div>
+                    <div style={{ "backgroundImage": "url(./fire-min.jpg", "height": "100vh", "backgroundAttachment": "fixed", "backgroundPosition": "center", "backgroundRepeat": "no-repeat", "backgroundSize": "cover" }}></div>
                 </section>
             </div>
         </div >
@@ -80,4 +64,4 @@ function Book() {
         </div>
     )
 }
-
+export default MainPage

@@ -15,12 +15,21 @@ import axios from 'axios'
 import Paper from '@material-ui/core/Paper';
 import blue from "@material-ui/core/colors/blue";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
+import Header from '../../src/header'
 import 'twix'
-export default function Booking() {
+import MomentUtils from '@date-io/moment';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+export default Booking
+function Booking() {
     return (
-
-
-        <BookStepper></BookStepper>
+        <div>
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+                <Header></Header>
+                <div style={{ marginTop: '64px' }}>
+                    <BookStepper></BookStepper>
+                </div>
+            </MuiPickersUtilsProvider>
+        </div>
     )
 }
 const materialTheme = createMuiTheme({
@@ -36,7 +45,10 @@ const materialTheme = createMuiTheme({
 class BookStepper extends React.Component {
     constructor() {
         super()
-        var sizeInit = window.innerWidth < 450 ? "moblie" : "desktop"
+        if (process.browser === true) {
+            var sizeInit = window.innerWidth < 450 ? "moblie" : "desktop"
+        }
+
         this.state = {
             activeStep: 0,
             user: null,
@@ -69,6 +81,18 @@ class BookStepper extends React.Component {
         this.getCost = this.getCost.bind(this)
         this.handleWindowSizeChange = this.handleWindowSizeChange.bind(this)
     }
+    componentDidMount() {
+
+        if (window.innerWidth <= 450) {
+            this.setState({ size: "mobile" });
+        }
+        else {
+            this.setState({ size: "desktop" });
+        }
+        if (process.browser === true) {
+            window.addEventListener('resize', this.handleWindowSizeChange);
+        }
+    }
     componentWillMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -85,18 +109,22 @@ class BookStepper extends React.Component {
                 }))
             }
         })
-        window.addEventListener('resize', this.handleWindowSizeChange);
     }
     componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowSizeChange);
+        if (process.browser === true) {
+            window.removeEventListener('resize', this.handleWindowSizeChange);
+        }
     }
     handleWindowSizeChange() {
-        if (window.innerWidth <= 450) {
-            this.setState({ size: "mobile" });
+        if (process.browser === true) {
+            if (window.innerWidth <= 450) {
+                this.setState({ size: "mobile" });
+            }
+            else {
+                this.setState({ size: "desktop" });
+            }
         }
-        else {
-            this.setState({ size: "desktop" });
-        }
+
     };
     handleNext() {
         this.setState(state => ({

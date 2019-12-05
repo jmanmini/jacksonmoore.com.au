@@ -12,23 +12,16 @@ import Grow from '@material-ui/core/Grow';
 import Fade from '@material-ui/core/Fade';
 import firebase from '@firebase/app';
 import '@firebase/database';
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
+import Header from '../../src/alyssa/header'
 const mainStyles = {
     paddingTop: '64px'
 }
-var config = {
-    apiKey: "-",
-    authDomain: "booking-7639c.firebaseapp.com",
-    databaseURL: "https://booking-7639c.firebaseio.com",
-    projectId: "booking-7639c",
-    storageBucket: "booking-7639c.appspot.com",
-    messagingSenderId: "54189841386"
-};
-firebase.initializeApp(config);
+
 function HomeContent() {
     return (
         <div style={{
-            background: "url(" + require('./six.jpg') + ")",
+            background: "url(./alyssa/six.jpg)",
             width: '100%', height: 'calc(100vh - 64px)',
             backgroundPosition: "center center",
             backgroundSize: "cover",
@@ -118,6 +111,17 @@ class PortfolioCardHome extends React.Component {
 
     }
     componentDidMount() {
+        if (!firebase.apps.length) {
+            var config = {
+                apiKey: "-",
+                authDomain: "booking-7639c.firebaseapp.com",
+                databaseURL: "https://booking-7639c.firebaseio.com",
+                projectId: "booking-7639c",
+                storageBucket: "booking-7639c.appspot.com",
+                messagingSenderId: "54189841386"
+            };
+            firebase.initializeApp(config);
+        }
         firebase.database().ref('/alyssa/portfolioCards/Card' + this.props.num).on('value', data => {
             this.setState({
                 title: data.val().Title,
@@ -137,24 +141,27 @@ class PortfolioCardHome extends React.Component {
 
                 <Card style={{ maxWidth: '350px', backgroundColor: 'white', margin: '8px', WebkitTransform: 'translate3d(0,0,0)', marginBottom: '20px', borderRadius: '12px' }}>
                     <CardActionArea>
-                        <Link to={`/portfolio`} style={{ textDecoration: 'none' }}>
-                            <CardMedia
-                                component='img'
-                                image={require("./" + this.state.image)}
-                                height='194'
-                                width='344'
-                            />
-                            <CardContent style={{ padding: '16px' }}>
-                                <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: 'Comfortaa, cursive', fontWeight: 'bold' }}>
-                                    {this.state.title}
-                                </Typography>
-                                <Typography style={{ fontFamily: 'Comfortaa, cursive', marginBottom: 12, }} color="textSecondary">
-                                    £{this.state.price}
-                                </Typography>
-                                <Typography component="p" style={{ fontFamily: 'Roboto' }}>
-                                    {this.state.description}
-                                </Typography>
-                            </CardContent>
+                        <Link href='/alyssa/portfolio' style={{ textDecoration: 'none' }}>
+                            <div>
+
+                                <CardMedia
+                                    component='img'
+                                    image={"./alyssa/" + this.state.image}
+                                    height='194'
+                                    width='344'
+                                />
+                                <CardContent style={{ padding: '16px' }}>
+                                    <Typography gutterBottom variant="h5" component="h2" style={{ fontFamily: 'Comfortaa, cursive', fontWeight: 'bold' }}>
+                                        {this.state.title}
+                                    </Typography>
+                                    <Typography style={{ fontFamily: 'Comfortaa, cursive', marginBottom: 12, }} color="textSecondary">
+                                        £{this.state.price}
+                                    </Typography>
+                                    <Typography component="p" style={{ fontFamily: 'Roboto' }}>
+                                        {this.state.description}
+                                    </Typography>
+                                </CardContent>
+                            </div>
                         </Link>
                     </CardActionArea>
                 </Card>
@@ -164,7 +171,9 @@ class PortfolioCardHome extends React.Component {
 }
 export default function Home() {
     return (
+
         <div style={mainStyles}>
+            <Header></Header>
             <HomeContent></HomeContent>
             <PortfolioBrief></PortfolioBrief>
         </div>

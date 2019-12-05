@@ -11,7 +11,7 @@ import {
     Home,
     CalendarToday
 } from "@material-ui/icons";
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import MenuIcon from '@material-ui/icons/Menu'
 import firebase from 'firebase/app';
 import 'firebase/auth'
@@ -87,7 +87,7 @@ export default class Header extends React.Component {
         this.state = {
             open: false,
             openMenu: false,
-            photoURL: 'https://wths.hope.edu/wp-content/uploads/2017/04/profile-placeholder.png',
+            photoURL: 'https://journalism.berkeley.edu/wp-content/uploads/profile-placeholder.png',
             user: null
         }
     }
@@ -96,8 +96,20 @@ export default class Header extends React.Component {
     }
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
+
     }
     componentWillMount() {
+        if (!firebase.apps.length) {
+            firebase.initializeApp({
+                apiKey: "-",
+                authDomain: "booking-7639c.firebaseapp.com",
+                databaseURL: "https://booking-7639c.firebaseio.com",
+                projectId: "booking-7639c",
+                storageBucket: "booking-7639c.appspot.com",
+                messagingSenderId: "54189841386"
+            });
+        }
+
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({ user, photoURL: user.photoURL });
@@ -145,16 +157,16 @@ export default class Header extends React.Component {
                 >
                     <div>
                         <List>
-                            <Link to={`/`} style={linkStyles} onClick={() => this.setState({ open: false })}>
-                                <ListItem button>
+                            <Link href='/booking' style={linkStyles}>
+                                <ListItem button onClick={() => this.setState({ open: false })}>
                                     <ListItemIcon>
                                         <Home />
                                     </ListItemIcon>
                                     <ListItemTextStyled primary="Home" />
                                 </ListItem>
                             </Link>
-                            <Link to={`/book`} style={linkStyles} onClick={() => this.setState({ open: false })}>
-                                <ListItem button>
+                            <Link href='/booking/book' style={linkStyles}>
+                                <ListItem button onClick={() => this.setState({ open: false })}>
                                     <ListItemIcon>
                                         <CalendarToday />
                                     </ListItemIcon>

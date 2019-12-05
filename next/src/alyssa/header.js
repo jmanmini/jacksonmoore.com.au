@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import {
     AppBar, Toolbar,
@@ -19,6 +18,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram, faTumblr, faPatreon, faPinterest } from '@fortawesome/free-brands-svg-icons'
 import Fab from '@material-ui/core/Fab';
+import Link from 'next/link'
+
 
 
 
@@ -119,7 +120,7 @@ class Sharebutton extends React.Component {
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}
-                    style={{borderRadius: '12px'}}
+                    style={{ borderRadius: '12px' }}
                 >
                     <MenuItem style={listStyles} onClick={() => window.location = "https://www.instagram.com/lyss_abyss_/"}>
                         <ListItemIcon>
@@ -160,7 +161,7 @@ export default class Header extends React.Component {
         }
     }
     handleResize() {
-            this.forceUpdate()
+        this.forceUpdate()
     }
     componentDidMount() {
         window.addEventListener('resize', this.handleResize);
@@ -175,7 +176,7 @@ export default class Header extends React.Component {
                 fontFamily: 'Comfortaa, cursive'
             },
         })(ListItemText);
-        if (window.matchMedia("(max-width: 525px)").matches) {
+        if (false) {
             return (
 
                 <header>
@@ -184,11 +185,11 @@ export default class Header extends React.Component {
                         open={this.state.open}
                         onClose={() => this.setState({ open: false })}
                         onOpen={() => this.setState({ open: true })}
-                        style={{borderRadius: '12px'}}
+                        style={{ borderRadius: '12px' }}
                     >
                         <div>
                             <List>
-                                <Link to={`/`} style={linkStyles}>
+                                <Link href='/alyssa' style={linkStyles}>
                                     <ListItem button>
                                         <ListItemIcon>
                                             <Home />
@@ -196,7 +197,7 @@ export default class Header extends React.Component {
                                         <ListItemTextStyled primary="Home" />
                                     </ListItem>
                                 </Link>
-                                <Link to={`/portfolio`} style={linkStyles}>
+                                <Link href='/alyssa/portfolio' style={linkStyles}>
                                     <ListItem button>
                                         <ListItemIcon>
                                             <PhotoAlbum />
@@ -204,7 +205,7 @@ export default class Header extends React.Component {
                                         <ListItemTextStyled primary="Portfolio" />
                                     </ListItem>
                                 </Link>
-                                <Link to={`/shop`} style={linkStyles}>
+                                <Link href='/alyssa/shop' style={linkStyles}>
                                     <ListItem button >
                                         <ListItemIcon>
                                             <Shop />
