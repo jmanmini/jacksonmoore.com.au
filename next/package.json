@@ -10,7 +10,9 @@
     "build": "webpack --mode production",
     "deploy": "webpack --mode production && git add * && git commit -m \"Auto commit on %date%\" && git push origin master",
     "start:dev": "webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0",
-    //"start:next": "next ./src"
+    "start:next": "set NODE_ENV=production && next start",
+    "start:devnext": "next",
+    "build:next": "set NODE_ENV=production && next build"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -18,6 +20,7 @@
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
     "css-loader": "^3.2.0",
     "file-loader": "^5.0.2",
     "image-webpack-loader": "^6.0.0",
@@ -41,6 +44,7 @@
     "@material-ui/icons": "^4.5.1",
     "axios": "^0.19.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "compression": "^1.7.4",
     "firebase": "^7.5.0",
     "material-ui": "^0.20.2",
     "material-ui-pickers": "^2.2.4",
@@ -55,6 +59,7 @@
     "react-scrolling-color-background": "^1.0.2",
     "react-typed": "^1.2.0",
     "source-map-explorer": "^2.1.1",
+    "spdy": "^4.0.1",
     "twix": "^1.3.0",
     "typed.js": "^2.0.11"
   }

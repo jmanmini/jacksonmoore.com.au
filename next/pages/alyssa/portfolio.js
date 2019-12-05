@@ -28,7 +28,7 @@ export default function Portfolio() {
                         <CardActionArea>
                             <CardMedia
                                 component='img'
-                                image={require("./art1.jpg")}
+                                image={"./alyssa/art1.jpg"}
                                 height="200"
                             />
                             <CardContent>
@@ -52,7 +52,7 @@ export default function Portfolio() {
                         <CardActionArea>
                             <CardMedia
                                 component='img'
-                                image={require("./art1.jpg")}
+                                image={"./alyssa/art1.jpg"}
                                 height="200"
                             />
                             <CardContent>
