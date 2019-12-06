@@ -28,4 +28,5 @@ registry:
     - docker build -t registry.gitlab.com/jmanmini/jacksonmoore-com-au/datadog ./datadog
     - docker push registry.gitlab.com/jmanmini/jacksonmoore-com-au/datadog
   only:
-    - master
+    refs:
+      - master

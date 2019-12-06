@@ -15,10 +15,11 @@ import axios from 'axios'
 import Paper from '@material-ui/core/Paper';
 import blue from "@material-ui/core/colors/blue";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import Header from '../../src/header'
+import Header from '../../src/booking/header'
 import 'twix'
 import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import MediaQuery from 'react-responsive'
 export default Booking
 function Booking() {
     return (
@@ -79,19 +80,10 @@ class BookStepper extends React.Component {
         this.handleGuestsChange = this.handleGuestsChange.bind(this)
         this.book = this.book.bind(this)
         this.getCost = this.getCost.bind(this)
-        this.handleWindowSizeChange = this.handleWindowSizeChange.bind(this)
+    
+
     }
     componentDidMount() {
-
-        if (window.innerWidth <= 450) {
-            this.setState({ size: "mobile" });
-        }
-        else {
-            this.setState({ size: "desktop" });
-        }
-        if (process.browser === true) {
-            window.addEventListener('resize', this.handleWindowSizeChange);
-        }
     }
     componentWillMount() {
         firebase.auth().onAuthStateChanged((user) => {
@@ -111,21 +103,7 @@ class BookStepper extends React.Component {
         })
     }
     componentWillUnmount() {
-        if (process.browser === true) {
-            window.removeEventListener('resize', this.handleWindowSizeChange);
-        }
     }
-    handleWindowSizeChange() {
-        if (process.browser === true) {
-            if (window.innerWidth <= 450) {
-                this.setState({ size: "mobile" });
-            }
-            else {
-                this.setState({ size: "desktop" });
-            }
-        }
-
-    };
     handleNext() {
         this.setState(state => ({
             activeStep: state.activeStep + 1,
@@ -279,167 +257,335 @@ class BookStepper extends React.Component {
     }
     render() {
         return (
-            <div style={this.state.size === "desktop" ? { backgroundColor: "#eeeeee", height: "100%", minHeight: "calc(100vh - 64px)" } : {}}>
-                <div style={this.state.size === "desktop" ? { margin: "24px", paddingTop: "24px", paddingBottom: "24px" } : {}}>
-                    <Stepper activeStep={this.state.activeStep} orientation="vertical" elevation={this.state.size === "desktop" ? 1 : 0} style={this.state.size === "desktop" ? { borderRadius: "24px", maxWidth: "700px", margin: "0 auto" } : {}}>
-                        <Step key='0'>
-                            <StepLabel>Login</StepLabel>
-                            <StepContent>
-                                <Typography>Before you can book your stay, please login using your google account. If you don't have a google account, email us at booking@ckjom.com</Typography>
-                                <div style={{ marginBottom: '8px' }}>
-                                    <div>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                            style={{ marginTop: '4px', marginRight: '4px' }}
-                                            disabled={!(this.state.user)}
-                                        >
-                                            Begin
+            <div>
+                <MediaQuery minWidth={450} >
+                    <div style={{ backgroundColor: "#eeeeee", height: "100%", minHeight: "calc(100vh - 64px)" }}>
+                        <div style={{ margin: "24px", paddingTop: "24px", paddingBottom: "24px" }}>
+                            <Stepper activeStep={this.state.activeStep} orientation="vertical" elevation={1} style={{ borderRadius: "24px", maxWidth: "700px", margin: "0 auto" }}>
+                                <Step key='0'>
+                                    <StepLabel>Login</StepLabel>
+                                    <StepContent>
+                                        <Typography>Before you can book your stay, please login using your google account. If you don't have a google account, email us at booking@ckjom.com</Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                    disabled={!(this.state.user)}
+                                                >
+                                                    Begin
                                 </Button>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        <Step key='1'>
-                            <StepLabel>Dates</StepLabel>
-                            <StepContent>
-                                <Typography>When would you like to stay?</Typography>
-                                <div style={{ marginBottom: '8px' }}>
-                                    <div>
-                                        <MuiThemeProvider theme={materialTheme}>
-                                            <InlineDatePicker
-                                                onlyCalendar
-                                                fullWidth
-                                                label="From"
-                                                onChange={(val) => this.handleDateChange(val, 1)}
-                                                helperText={this.state.message1}
-                                                error={this.state.error1}
-                                                value={this.state.fromDate}
-                                                minDate={moment().add(1, 'days')}
-                                                shouldDisableDate={this.isDateDisabled}
-                                            />
-                                            <br />
-                                            <InlineDatePicker
-                                                onlyCalendar
-                                                fullWidth
-                                                label="To"
-                                                onChange={(val) => this.handleDateChange(val, 2)}
-                                                helperText={this.state.message2}
-                                                error={this.state.error2}
-                                                value={this.state.toDate}
-                                                minDate={moment().add(1, 'days')}
-                                                shouldDisableDate={this.isDateDisabled}
-                                            />
-                                        </MuiThemeProvider>
-                                        <br />
-                                        <br />
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='1'>
+                                    <StepLabel>Dates</StepLabel>
+                                    <StepContent>
+                                        <Typography>When would you like to stay?</Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <MuiThemeProvider theme={materialTheme}>
+                                                    <InlineDatePicker
+                                                        onlyCalendar
+                                                        fullWidth
+                                                        label="From"
+                                                        onChange={(val) => this.handleDateChange(val, 1)}
+                                                        helperText={this.state.message1}
+                                                        error={this.state.error1}
+                                                        value={this.state.fromDate}
+                                                        minDate={moment().add(1, 'days')}
+                                                        shouldDisableDate={this.isDateDisabled}
+                                                    />
+                                                    <br />
+                                                    <InlineDatePicker
+                                                        onlyCalendar
+                                                        fullWidth
+                                                        label="To"
+                                                        onChange={(val) => this.handleDateChange(val, 2)}
+                                                        helperText={this.state.message2}
+                                                        error={this.state.error2}
+                                                        value={this.state.toDate}
+                                                        minDate={moment().add(1, 'days')}
+                                                        shouldDisableDate={this.isDateDisabled}
+                                                    />
+                                                </MuiThemeProvider>
+                                                <br />
+                                                <br />
 
 
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => { this.handleNext(); this.getCost() }}
-                                            style={{ marginTop: '4px', marginRight: '4px' }}
-                                            disabled={this.state.datesCorrect}
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => { this.handleNext(); this.getCost() }}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                    disabled={this.state.datesCorrect}
 
-                                        >
-                                            Next
+                                                >
+                                                    Next
                                 </Button>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        <Step key='2'>
-                            <StepLabel>Guests</StepLabel>
-                            <StepContent>
-                                <Typography>How many people are staying?<br />Please be aware the house only fits 10 people</Typography>
-                                <div style={{ marginBottom: '8px' }}>
-                                    <div>
-                                        <TextField
-                                            id="standard-number"
-                                            label="Guests"
-                                            inputProps={{ min: 1, max: 10 }}
-                                            onChange={this.handleGuestsChange}
-                                            type="number"
-                                            fullWidth
-                                            helperText={this.state.message3}
-                                            error={this.state.error3}
-                                        />
-                                        <br />
-                                        <br />
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                            style={{ marginTop: '4px', marginRight: '4px' }}
-                                            disabled={this.state.guestsCorrect}
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='2'>
+                                    <StepLabel>Guests</StepLabel>
+                                    <StepContent>
+                                        <Typography>How many people are staying?<br />Please be aware the house only fits 10 people</Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <TextField
+                                                    id="standard-number"
+                                                    label="Guests"
+                                                    inputProps={{ min: 1, max: 10 }}
+                                                    onChange={this.handleGuestsChange}
+                                                    type="number"
+                                                    fullWidth
+                                                    helperText={this.state.message3}
+                                                    error={this.state.error3}
+                                                />
+                                                <br />
+                                                <br />
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                    disabled={this.state.guestsCorrect}
 
-                                        >
-                                            Next
+                                                >
+                                                    Next
                                 </Button>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        <Step key='3'>
-                            <StepLabel>Confirm</StepLabel>
-                            <StepContent>
-                                <Typography>Just to confirm, this is your booking:
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='3'>
+                                    <StepLabel>Confirm</StepLabel>
+                                    <StepContent>
+                                        <Typography>Just to confirm, this is your booking:
                             <br />
-                                    <b>Name:</b> {this.state.name}<br />
-                                    <b>Email:</b> {this.state.email}<br /><br />
-                                    <b>From:</b> {this.state.fromDate.format('YYYY-MM-DD')}<br />
-                                    <b>To:</b> {this.state.toDate.format('YYYY-MM-DD')}<br />
-                                    <b>With:</b> {this.state.guests} guest(s)<br />
-                                    <hr></hr>
-                                    <b>Total:</b>
-                                    <div>
-                                        {this.state.weekdays} weekdays x$50
+                                            <b>Name:</b> {this.state.name}<br />
+                                            <b>Email:</b> {this.state.email}<br /><br />
+                                            <b>From:</b> {this.state.fromDate.format('YYYY-MM-DD')}<br />
+                                            <b>To:</b> {this.state.toDate.format('YYYY-MM-DD')}<br />
+                                            <b>With:</b> {this.state.guests} guest(s)<br />
+                                            <hr></hr>
+                                            <b>Total:</b>
+                                            <div>
+                                                {this.state.weekdays} weekdays x$50
                                 <br></br>
-                                        {this.state.weekends} weekends x$60
+                                                {this.state.weekends} weekends x$60
                                 <br></br>
-                                        =${this.state.cost}
-                                    </div>
-                                </Typography>
-                                <div style={{ marginBottom: '8px' }}>
-                                    <div>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => { this.handleNext(); this.book() }}
-                                            style={{ marginTop: '4px', marginRight: '4px' }}
-                                        >
-                                            Confirm
+                                                =${this.state.cost}
+                                            </div>
+                                        </Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => { this.handleNext(); this.book() }}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                >
+                                                    Confirm
                                 </Button>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                        <Step key='3'>
-                            <StepLabel>Finish</StepLabel>
-                            <StepContent>
-                                <Typography>
-                                    Your booking is in our calendar. You should receive a confirmation email shortly with your booking number and payment details.
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='3'>
+                                    <StepLabel>Finish</StepLabel>
+                                    <StepContent>
+                                        <Typography>
+                                            Your booking is in our calendar. You should receive a confirmation email shortly with your booking number and payment details.
                             <br></br>
-                                    We hope you enjoy your stay!
+                                            We hope you enjoy your stay!
                         </Typography>
-                                <div style={{ marginBottom: '8px' }}>
-                                    <div>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={this.handleNext}
-                                            style={{ marginTop: '4px', marginRight: '4px' }}
-                                        >
-                                            Finish
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                >
+                                                    Finish
                                 </Button>
-                                    </div>
-                                </div>
-                            </StepContent>
-                        </Step>
-                    </Stepper>
-                </div>
-            </div>)
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                            </Stepper>
+                        </div>
+                    </div>
+                </MediaQuery>
+                <MediaQuery maxWidth={450} >
+
+                    <div>
+                        <div>
+                            <Stepper activeStep={this.state.activeStep} orientation="vertical" elevation={0}>
+                                <Step key='0'>
+                                    <StepLabel>Login</StepLabel>
+                                    <StepContent>
+                                        <Typography>Before you can book your stay, please login using your google account. If you don't have a google account, email us at booking@ckjom.com</Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                    disabled={!(this.state.user)}
+                                                >
+                                                    Begin
+                                </Button>
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='1'>
+                                    <StepLabel>Dates</StepLabel>
+                                    <StepContent>
+                                        <Typography>When would you like to stay?</Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <MuiThemeProvider theme={materialTheme}>
+                                                    <InlineDatePicker
+                                                        onlyCalendar
+                                                        fullWidth
+                                                        label="From"
+                                                        onChange={(val) => this.handleDateChange(val, 1)}
+                                                        helperText={this.state.message1}
+                                                        error={this.state.error1}
+                                                        value={this.state.fromDate}
+                                                        minDate={moment().add(1, 'days')}
+                                                        shouldDisableDate={this.isDateDisabled}
+                                                    />
+                                                    <br />
+                                                    <InlineDatePicker
+                                                        onlyCalendar
+                                                        fullWidth
+                                                        label="To"
+                                                        onChange={(val) => this.handleDateChange(val, 2)}
+                                                        helperText={this.state.message2}
+                                                        error={this.state.error2}
+                                                        value={this.state.toDate}
+                                                        minDate={moment().add(1, 'days')}
+                                                        shouldDisableDate={this.isDateDisabled}
+                                                    />
+                                                </MuiThemeProvider>
+                                                <br />
+                                                <br />
+
+
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => { this.handleNext(); this.getCost() }}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                    disabled={this.state.datesCorrect}
+
+                                                >
+                                                    Next
+                                </Button>
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='2'>
+                                    <StepLabel>Guests</StepLabel>
+                                    <StepContent>
+                                        <Typography>How many people are staying?<br />Please be aware the house only fits 10 people</Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <TextField
+                                                    id="standard-number"
+                                                    label="Guests"
+                                                    inputProps={{ min: 1, max: 10 }}
+                                                    onChange={this.handleGuestsChange}
+                                                    type="number"
+                                                    fullWidth
+                                                    helperText={this.state.message3}
+                                                    error={this.state.error3}
+                                                />
+                                                <br />
+                                                <br />
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                    disabled={this.state.guestsCorrect}
+
+                                                >
+                                                    Next
+                                </Button>
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='3'>
+                                    <StepLabel>Confirm</StepLabel>
+                                    <StepContent>
+                                        <Typography>Just to confirm, this is your booking:
+                            <br />
+                                            <b>Name:</b> {this.state.name}<br />
+                                            <b>Email:</b> {this.state.email}<br /><br />
+                                            <b>From:</b> {this.state.fromDate.format('YYYY-MM-DD')}<br />
+                                            <b>To:</b> {this.state.toDate.format('YYYY-MM-DD')}<br />
+                                            <b>With:</b> {this.state.guests} guest(s)<br />
+                                            <hr></hr>
+                                            <b>Total:</b>
+                                            <div>
+                                                {this.state.weekdays} weekdays x$50
+                                <br></br>
+                                                {this.state.weekends} weekends x$60
+                                <br></br>
+                                                =${this.state.cost}
+                                            </div>
+                                        </Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => { this.handleNext(); this.book() }}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                >
+                                                    Confirm
+                                </Button>
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                                <Step key='3'>
+                                    <StepLabel>Finish</StepLabel>
+                                    <StepContent>
+                                        <Typography>
+                                            Your booking is in our calendar. You should receive a confirmation email shortly with your booking number and payment details.
+                            <br></br>
+                                            We hope you enjoy your stay!
+                        </Typography>
+                                        <div style={{ marginBottom: '8px' }}>
+                                            <div>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    style={{ marginTop: '4px', marginRight: '4px' }}
+                                                >
+                                                    Finish
+                                </Button>
+                                            </div>
+                                        </div>
+                                    </StepContent>
+                                </Step>
+                            </Stepper>
+                        </div>
+                    </div>
+                </MediaQuery></div>)
     }
 }
