@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../src/header'
+import Header from '../../src/booking/header'
 import Booking from './book'
 import Head from 'next/head'
 import '@firebase/auth';

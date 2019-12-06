@@ -19,6 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram, faTumblr, faPatreon, faPinterest } from '@fortawesome/free-brands-svg-icons'
 import Fab from '@material-ui/core/Fab';
 import Link from 'next/link'
+import MediaQuery from 'react-responsive'
+import Head from 'next/head'
 
 
 
@@ -176,96 +178,105 @@ export default class Header extends React.Component {
                 fontFamily: 'Comfortaa, cursive'
             },
         })(ListItemText);
-        if (false) {
-            return (
 
-                <header>
-                    <SwipeableDrawer
-                        anchor='bottom'
-                        open={this.state.open}
-                        onClose={() => this.setState({ open: false })}
-                        onOpen={() => this.setState({ open: true })}
-                        style={{ borderRadius: '12px' }}
-                    >
-                        <div>
-                            <List>
-                                <Link href='/alyssa' style={linkStyles}>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <Home />
-                                        </ListItemIcon>
-                                        <ListItemTextStyled primary="Home" />
-                                    </ListItem>
-                                </Link>
-                                <Link href='/alyssa/portfolio' style={linkStyles}>
-                                    <ListItem button>
-                                        <ListItemIcon>
-                                            <PhotoAlbum />
-                                        </ListItemIcon>
-                                        <ListItemTextStyled primary="Portfolio" />
-                                    </ListItem>
-                                </Link>
-                                <Link href='/alyssa/shop' style={linkStyles}>
-                                    <ListItem button >
-                                        <ListItemIcon>
-                                            <Shop />
-                                        </ListItemIcon>
-                                        <ListItemTextStyled primary="Shop" />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                        </div>
-                    </SwipeableDrawer>
-                    <AppBar style={appBarStyles}>
-                        <Toolbar style={appBarStyles}>
-                            <div style={{
-                                paddingLeft: '8px',
-                                paddingRight: '8px',
-                            }}>
-                                <IconButton color="inherit" aria-label="Menu" onClick={() => this.setState({ open: true })}>
-                                    <MenuIcon />
-                                </IconButton>
-                            </div>
-                            <div style={menuItemStyleLeftMobile}>
-                                Alyssa C.
-                            </div>
-                            <Sharebutton directionStyles={menuItemStyleRightMobile}></Sharebutton>
-                        </Toolbar>
-                    </AppBar>
-                </header >
-            );
-        }
-        else {
-            return (
+        return (
+            <div>
+                <Head>
+                    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"></link>
+                    <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet"></link>
+                    <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet"></link>
+                </Head>
+                <MediaQuery maxDeviceWidth={525}>
 
-                <header>
-                    <AppBar style={appBarStyles}>
-                        <Toolbar style={appBarStyles}>
-                            <div style={menuItemStyleLeft}>
-                                Alyssa C.
+                    <header>
+                        <SwipeableDrawer
+                            anchor='bottom'
+                            open={this.state.open}
+                            onClose={() => this.setState({ open: false })}
+                            onOpen={() => this.setState({ open: true })}
+                            style={{ borderRadius: '12px' }}
+                        >
+                            <div>
+                                <List>
+                                    <Link href='/alyssa' style={linkStyles}>
+                                        <ListItem button>
+                                            <ListItemIcon>
+                                                <Home />
+                                            </ListItemIcon>
+                                            <ListItemTextStyled primary="Home" />
+                                        </ListItem>
+                                    </Link>
+                                    <Link href='/alyssa/portfolio' style={linkStyles}>
+                                        <ListItem button>
+                                            <ListItemIcon>
+                                                <PhotoAlbum />
+                                            </ListItemIcon>
+                                            <ListItemTextStyled primary="Portfolio" />
+                                        </ListItem>
+                                    </Link>
+                                    <Link href='/alyssa/shop' style={linkStyles}>
+                                        <ListItem button >
+                                            <ListItemIcon>
+                                                <Shop />
+                                            </ListItemIcon>
+                                            <ListItemTextStyled primary="Shop" />
+                                        </ListItem>
+                                    </Link>
+                                </List>
                             </div>
-                            <div id='bob' style={toolBar1}>
-                                <Link to={`/`} style={linkStyles}>
-                                    <Button style={buttonStyles}>
-                                        Home
-                                </Button>
-                                </Link>
-                                <Link to={`/portfolio`} style={linkStyles}>
-                                    <Button style={buttonStyles}>
-                                        Portfolio
-                                    </Button>
-                                </Link>
-                                <Link to={`/shop`} style={linkStyles}>
-                                    <Button style={buttonStyles}>
-                                        Shop
-                                    </Button>
-                                </Link>
+                        </SwipeableDrawer>
+                        <AppBar style={appBarStyles}>
+                            <Toolbar style={appBarStyles}>
+                                <div style={{
+                                    paddingLeft: '8px',
+                                    paddingRight: '8px',
+                                }}>
+                                    <IconButton color="inherit" aria-label="Menu" onClick={() => this.setState({ open: true })}>
+                                        <MenuIcon />
+                                    </IconButton>
+                                </div>
+                                <div style={menuItemStyleLeftMobile}>
+                                    Alyssa C.
                             </div>
-                            <Sharebutton directionStyles={menuItemStyleRight}></Sharebutton>
-                        </Toolbar>
-                    </AppBar>
-                </header >
-            );
-        }
+                                <Sharebutton directionStyles={menuItemStyleRightMobile}></Sharebutton>
+                            </Toolbar>
+                        </AppBar>
+                    </header >
+                </MediaQuery>
+                <MediaQuery minDeviceWidth={526}>
+
+
+
+                    <header>
+                        <AppBar style={appBarStyles}>
+                            <Toolbar style={appBarStyles}>
+                                <div style={menuItemStyleLeft}>
+                                    Alyssa C.
+                            </div>
+                                <div id='bob' style={toolBar1}>
+                                    <Link href='/alyssa' style={linkStyles}>
+                                        <Button style={buttonStyles}>
+                                            Home
+                                        </Button>
+                                    </Link>
+                                    <Link href='/alyssa/portfolio' style={linkStyles}>
+                                        <Button style={buttonStyles}>
+                                            Portfolio
+                                    </Button>
+                                    </Link>
+                                    <Link href='/alyssa/shop' style={linkStyles}>
+                                        <Button style={buttonStyles}>
+                                            Shop
+                                    </Button>
+                                    </Link>
+                                </div>
+                                <Sharebutton directionStyles={menuItemStyleRight}></Sharebutton>
+                            </Toolbar>
+                        </AppBar>
+                    </header >
+                </MediaQuery>
+            </div>
+        );
     }
 }
+
