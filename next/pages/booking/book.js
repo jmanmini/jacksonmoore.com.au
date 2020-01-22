@@ -26,7 +26,9 @@ function Booking() {
         <div>
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <Header></Header>
-                <div style={{ marginTop: '64px' }}>
+                <div style={{
+                    marginTop: '64px'
+                }}>
                     <BookStepper></BookStepper>
                 </div>
             </MuiPickersUtilsProvider>
@@ -38,16 +40,18 @@ const materialTheme = createMuiTheme({
 
         MuiPickersDay: {
             day: {
-                color: blue[500],
-            },
-        },
+                color: blue[500]
+            }
+        }
     }
 });
 class BookStepper extends React.Component {
     constructor() {
         super()
         if (process.browser === true) {
-            var sizeInit = window.innerWidth < 450 ? "moblie" : "desktop"
+            var sizeInit = window.innerWidth < 450
+                ? "moblie"
+                : "desktop"
         }
 
         this.state = {
@@ -63,68 +67,86 @@ class BookStepper extends React.Component {
             message3: '',
             datesCorrect: true, //inversed value - used for diabled propety
             bookedDates: [],
-            guestsCorrect: true,     //inversed value - used for diabled propety
+            guestsCorrect: true, //inversed value - used for diabled propety
             guests: 0,
             name: '',
             email: '',
             cost: 0,
             weekdays: 0,
             weekends: 0,
-            size: sizeInit,
+            size: sizeInit
         };
-        this.handleNext = this.handleNext.bind(this)
-        this.handleBack = this.handleBack.bind(this)
-        this.handleDateChange = this.handleDateChange.bind(this)
-        this.verify = this.verify.bind(this)
-        this.isDateDisabled = this.isDateDisabled.bind(this)
-        this.handleGuestsChange = this.handleGuestsChange.bind(this)
-        this.book = this.book.bind(this)
-        this.getCost = this.getCost.bind(this)
-    
+        this.handleNext = this
+            .handleNext
+            .bind(this)
+        this.handleBack = this
+            .handleBack
+            .bind(this)
+        this.handleDateChange = this
+            .handleDateChange
+            .bind(this)
+        this.verify = this
+            .verify
+            .bind(this)
+        this.isDateDisabled = this
+            .isDateDisabled
+            .bind(this)
+        this.handleGuestsChange = this
+            .handleGuestsChange
+            .bind(this)
+        this.book = this
+            .book
+            .bind(this)
+        this.getCost = this
+            .getCost
+            .bind(this)
 
     }
-    componentDidMount() {
-    }
+    componentDidMount() { }
     componentWillMount() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ user, email: user.email, name: user.displayName });
-            }
-            else {
-                this.setState({ user: null, activeStep: 0, email: '', name: '' });
-            }
-        })
-        firebase.database().ref('/bookings/').on('value', (ref) => {
-            for (var i in ref.val()) {
-                this.setState(prev => ({
-                    bookedDates: [...prev.bookedDates, { from: ref.val()[i]["from"], to: ref.val()[i]["to"] }]
-                }))
-            }
-        })
+        firebase
+            .auth()
+            .onAuthStateChanged((user) => {
+                if (user) {
+                    this.setState({ user, email: user.email, name: user.displayName });
+                } else {
+                    this.setState({ user: null, activeStep: 0, email: '', name: '' });
+                }
+            })
+        firebase
+            .database()
+            .ref('/bookings/')
+            .on('value', (ref) => {
+                for (var i in ref.val()) {
+                    this.setState(prev => ({
+                        bookedDates: [
+                            ...prev.bookedDates, {
+                                from: ref.val()[i]["from"],
+                                to: ref.val()[i]["to"]
+                            }
+                        ]
+                    }))
+                }
+            })
     }
-    componentWillUnmount() {
-    }
+    componentWillUnmount() { }
     handleNext() {
         this.setState(state => ({
-            activeStep: state.activeStep + 1,
+            activeStep: state.activeStep + 1
         }));
     };
     handleBack() {
         this.setState({
-            activeStep: this.state.activeStep - 1,
+            activeStep: this.state.activeStep - 1
         });
     };
     handleDateChange(val, pickerNo) {
         if (pickerNo === 1) {
-            this.setState({
-                fromDate: val
-            })
+            this.setState({ fromDate: val })
             this.verify(this.state.toDate, val)
         }
         if (pickerNo === 2) {
-            this.setState({
-                toDate: val
-            })
+            this.setState({ toDate: val })
             this.verify(val, this.state.fromDate)
         }
 
@@ -138,41 +160,18 @@ class BookStepper extends React.Component {
             var dbRange = from.twix(to)
             var localRange = fromDate.twix(toDate)
             if (localRange.overlaps(dbRange) || localRange.engulfs(dbRange) || localRange.equals(dbRange)) {
-                this.setState({
-                    error1: true,
-                    message1: "One or more dates are already booked in this period",
-                    error2: true,
-                    message2: "One or more dates are already booked in this period",
-                    datesCorrect: true
-                })
+                this.setState({ error1: true, message1: "One or more dates are already booked in this period", error2: true, message2: "One or more dates are already booked in this period", datesCorrect: true })
                 inBetweeny = true
-            }
-            else {
-                this.setState({
-                    error1: false,
-                    message1: "",
-                    error2: false,
-                    message2: "",
-                    datesCorrect: false
-                })
+            } else {
+                this.setState({ error1: false, message1: "", error2: false, message2: "", datesCorrect: false })
             }
         }
         if (toDate.isSameOrBefore(fromDate, 'day')) {
-            this.setState({
-                error2: true,
-                message2: "You can't leave before you arrive",
-                datesCorrect: true
-            })
-        }
-        else if (inBetweeny) {
+            this.setState({ error2: true, message2: "You can't leave before you arrive", datesCorrect: true })
+        } else if (inBetweeny) {
             return
-        }
-        else {
-            this.setState({
-                error2: false,
-                message2: "",
-                datesCorrect: false
-            })
+        } else {
+            this.setState({ error2: false, message2: "", datesCorrect: false })
         }
 
     }
@@ -186,32 +185,18 @@ class BookStepper extends React.Component {
     }
     handleGuestsChange(val) {
         if (val.target.value > 10) {
-            this.setState({
-                guests: val.target.value,
-                guestsCorrect: true,
-                error3: true,
-                message3: 'Only 10 people allowed'
-            })
-        }
-        else if (val.target.value < 1) {
-            this.setState({
-                guests: val.target.value,
-                guestsCorrect: true,
-                error3: true,
-                message3: 'Cannot have less than one guest'
-            })
-        }
-        else {
-            this.setState({
-                guests: val.target.value,
-                guestsCorrect: false,
-                error3: false,
-                message3: '',
-            })
+            this.setState({ guests: val.target.value, guestsCorrect: true, error3: true, message3: 'Only 10 people allowed' })
+        } else if (val.target.value < 1) {
+            this.setState({ guests: val.target.value, guestsCorrect: true, error3: true, message3: 'Cannot have less than one guest' })
+        } else {
+            this.setState({ guests: val.target.value, guestsCorrect: false, error3: false, message3: '' })
         }
     }
     getCost() {
-        var localRange = this.state.fromDate.twix(this.state.toDate)
+        var localRange = this
+            .state
+            .fromDate
+            .twix(this.state.toDate)
         var weekdays = 0
         var weekends = 0
         var arr = localRange.toArray('days')
@@ -219,64 +204,95 @@ class BookStepper extends React.Component {
         arr.forEach(element => {
             if (moment(element).day() === 5 || moment(element).day() === 6 || moment(element).day() === 0) {
                 weekends += 1
-            }
-            else {
+            } else {
                 weekdays += 1
             }
         });
         cost = weekdays * 50 + weekends * 60
-        this.setState({
-            cost: cost,
-            weekends: weekends,
-            weekdays: weekdays
-        })
+        this.setState({ cost: cost, weekends: weekends, weekdays: weekdays })
     }
     book() {
-        var keyRef = firebase.database().ref('/bookings/').push()
+        var keyRef = firebase
+            .database()
+            .ref('/bookings/')
+            .push()
         keyRef.set({
             "name": this.state.name,
             "email": this.state.email,
-            "from": this.state.fromDate.format('YYYY-MM-DD'),
-            "to": this.state.toDate.format('YYYY-MM-DD'),
+            "from": this
+                .state
+                .fromDate
+                .format('YYYY-MM-DD'),
+            "to": this
+                .state
+                .toDate
+                .format('YYYY-MM-DD'),
             "guests": this.state.guests,
             "cost": this.state.cost
         })
-        firebase.auth().currentUser.getIdToken().then((token) => {
-            axios({
-                url: '/booking/mail',
-                method: 'post',
-                baseURL: 'https://jacksonmoore.com.au/api/',
-                data: {
-                    key: keyRef.key,
-                    token: token,
-                },
+        firebase
+            .auth()
+            .currentUser
+            .getIdToken()
+            .then((token) => {
+                axios({
+                    url: '/booking/mail',
+                    method: 'post',
+                    baseURL: 'https://jacksonmoore.com.au/api/',
+                    data: {
+                        key: keyRef.key,
+                        token: token
+                    }
+                })
             })
-        })
-
 
     }
     render() {
         return (
             <div>
-                <MediaQuery minWidth={450} >
-                    <div style={{ backgroundColor: "#eeeeee", height: "100%", minHeight: "calc(100vh - 64px)" }}>
-                        <div style={{ margin: "24px", paddingTop: "24px", paddingBottom: "24px" }}>
-                            <Stepper activeStep={this.state.activeStep} orientation="vertical" elevation={1} style={{ borderRadius: "24px", maxWidth: "700px", margin: "0 auto" }}>
+                <MediaQuery minWidth={450}>
+                    <div
+                        style={{
+                            backgroundColor: "#eeeeee",
+                            height: "100%",
+                            minHeight: "calc(100vh - 64px)"
+                        }}>
+                        <div
+                            style={{
+                                margin: "24px",
+                                paddingTop: "24px",
+                                paddingBottom: "24px"
+                            }}>
+                            <Stepper
+                                activeStep={this.state.activeStep}
+                                orientation="vertical"
+                                elevation={1}
+                                style={{
+                                    borderRadius: "24px",
+                                    maxWidth: "700px",
+                                    margin: "0 auto"
+                                }}>
                                 <Step key='0'>
                                     <StepLabel>Login</StepLabel>
                                     <StepContent>
-                                        <Typography>Before you can book your stay, please login using your google account. If you don't have a google account, email us at booking@ckjom.com</Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <Typography>Before you can book your stay, please login using your google
+                                            account. If you don't have a google account, email us at booking@ckjom.com</Typography>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={this.handleNext}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                    disabled={!(this.state.user)}
-                                                >
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}
+                                                    disabled={!(this.state.user)}>
                                                     Begin
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -285,7 +301,10 @@ class BookStepper extends React.Component {
                                     <StepLabel>Dates</StepLabel>
                                     <StepContent>
                                         <Typography>When would you like to stay?</Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <MuiThemeProvider theme={materialTheme}>
                                                     <InlineDatePicker
@@ -297,8 +316,7 @@ class BookStepper extends React.Component {
                                                         error={this.state.error1}
                                                         value={this.state.fromDate}
                                                         minDate={moment().add(1, 'days')}
-                                                        shouldDisableDate={this.isDateDisabled}
-                                                    />
+                                                        shouldDisableDate={this.isDateDisabled} />
                                                     <br />
                                                     <InlineDatePicker
                                                         onlyCalendar
@@ -309,23 +327,25 @@ class BookStepper extends React.Component {
                                                         error={this.state.error2}
                                                         value={this.state.toDate}
                                                         minDate={moment().add(1, 'days')}
-                                                        shouldDisableDate={this.isDateDisabled}
-                                                    />
+                                                        shouldDisableDate={this.isDateDisabled} />
                                                 </MuiThemeProvider>
                                                 <br />
                                                 <br />
 
-
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={() => { this.handleNext(); this.getCost() }}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                    disabled={this.state.datesCorrect}
-
-                                                >
+                                                    onClick={() => {
+                                                        this.handleNext();
+                                                        this.getCost()
+                                                    }}
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}
+                                                    disabled={this.state.datesCorrect}>
                                                     Next
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -334,30 +354,36 @@ class BookStepper extends React.Component {
                                     <StepLabel>Guests</StepLabel>
                                     <StepContent>
                                         <Typography>How many people are staying?<br />Please be aware the house only fits 10 people</Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <TextField
                                                     id="standard-number"
                                                     label="Guests"
-                                                    inputProps={{ min: 1, max: 10 }}
+                                                    inputProps={{
+                                                        min: 1,
+                                                        max: 10
+                                                    }}
                                                     onChange={this.handleGuestsChange}
                                                     type="number"
                                                     fullWidth
                                                     helperText={this.state.message3}
-                                                    error={this.state.error3}
-                                                />
+                                                    error={this.state.error3} />
                                                 <br />
                                                 <br />
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={this.handleNext}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                    disabled={this.state.guestsCorrect}
-
-                                                >
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}
+                                                    disabled={this.state.guestsCorrect}>
                                                     Next
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -366,32 +392,54 @@ class BookStepper extends React.Component {
                                     <StepLabel>Confirm</StepLabel>
                                     <StepContent>
                                         <Typography>Just to confirm, this is your booking:
-                            <br />
-                                            <b>Name:</b> {this.state.name}<br />
-                                            <b>Email:</b> {this.state.email}<br /><br />
-                                            <b>From:</b> {this.state.fromDate.format('YYYY-MM-DD')}<br />
-                                            <b>To:</b> {this.state.toDate.format('YYYY-MM-DD')}<br />
-                                            <b>With:</b> {this.state.guests} guest(s)<br />
+                                            <br />
+                                            <b>Name:</b>
+                                            {this.state.name}<br />
+                                            <b>Email:</b>
+                                            {this.state.email}<br /><br />
+                                            <b>From:</b>
+                                            {this
+                                                .state
+                                                .fromDate
+                                                .format('YYYY-MM-DD')}<br />
+                                            <b>To:</b>
+                                            {this
+                                                .state
+                                                .toDate
+                                                .format('YYYY-MM-DD')}<br />
+                                            <b>With:</b>
+                                            {this.state.guests}
+                                            guest(s)<br />
                                             <hr></hr>
                                             <b>Total:</b>
                                             <div>
-                                                {this.state.weekdays} weekdays x$50
-                                <br></br>
-                                                {this.state.weekends} weekends x$60
-                                <br></br>
+                                                {this.state.weekdays}
+                                                weekdays x$50
+                                                <br></br>
+                                                {this.state.weekends}
+                                                weekends x$60
+                                                <br></br>
                                                 =${this.state.cost}
                                             </div>
                                         </Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={() => { this.handleNext(); this.book() }}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                >
+                                                    onClick={() => {
+                                                        this.handleNext();
+                                                        this.book()
+                                                    }}
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}>
                                                     Confirm
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -400,20 +448,26 @@ class BookStepper extends React.Component {
                                     <StepLabel>Finish</StepLabel>
                                     <StepContent>
                                         <Typography>
-                                            Your booking is in our calendar. You should receive a confirmation email shortly with your booking number and payment details.
-                            <br></br>
+                                            Your booking is in our calendar. You should receive a confirmation email shortly
+                                            with your booking number and payment details.
+                                            <br></br>
                                             We hope you enjoy your stay!
-                        </Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        </Typography>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={this.handleNext}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                >
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}>
                                                     Finish
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -422,26 +476,35 @@ class BookStepper extends React.Component {
                         </div>
                     </div>
                 </MediaQuery>
-                <MediaQuery maxWidth={450} >
+                <MediaQuery maxWidth={450}>
 
                     <div>
                         <div>
-                            <Stepper activeStep={this.state.activeStep} orientation="vertical" elevation={0}>
+                            <Stepper
+                                activeStep={this.state.activeStep}
+                                orientation="vertical"
+                                elevation={0}>
                                 <Step key='0'>
                                     <StepLabel>Login</StepLabel>
                                     <StepContent>
-                                        <Typography>Before you can book your stay, please login using your google account. If you don't have a google account, email us at booking@ckjom.com</Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <Typography>Before you can book your stay, please login using your google
+                                            account. If you don't have a google account, email us at booking@ckjom.com</Typography>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={this.handleNext}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                    disabled={!(this.state.user)}
-                                                >
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}
+                                                    disabled={!(this.state.user)}>
                                                     Begin
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -450,7 +513,10 @@ class BookStepper extends React.Component {
                                     <StepLabel>Dates</StepLabel>
                                     <StepContent>
                                         <Typography>When would you like to stay?</Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <MuiThemeProvider theme={materialTheme}>
                                                     <InlineDatePicker
@@ -462,8 +528,7 @@ class BookStepper extends React.Component {
                                                         error={this.state.error1}
                                                         value={this.state.fromDate}
                                                         minDate={moment().add(1, 'days')}
-                                                        shouldDisableDate={this.isDateDisabled}
-                                                    />
+                                                        shouldDisableDate={this.isDateDisabled} />
                                                     <br />
                                                     <InlineDatePicker
                                                         onlyCalendar
@@ -474,23 +539,25 @@ class BookStepper extends React.Component {
                                                         error={this.state.error2}
                                                         value={this.state.toDate}
                                                         minDate={moment().add(1, 'days')}
-                                                        shouldDisableDate={this.isDateDisabled}
-                                                    />
+                                                        shouldDisableDate={this.isDateDisabled} />
                                                 </MuiThemeProvider>
                                                 <br />
                                                 <br />
 
-
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={() => { this.handleNext(); this.getCost() }}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                    disabled={this.state.datesCorrect}
-
-                                                >
+                                                    onClick={() => {
+                                                        this.handleNext();
+                                                        this.getCost()
+                                                    }}
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}
+                                                    disabled={this.state.datesCorrect}>
                                                     Next
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -499,30 +566,36 @@ class BookStepper extends React.Component {
                                     <StepLabel>Guests</StepLabel>
                                     <StepContent>
                                         <Typography>How many people are staying?<br />Please be aware the house only fits 10 people</Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <TextField
                                                     id="standard-number"
                                                     label="Guests"
-                                                    inputProps={{ min: 1, max: 10 }}
+                                                    inputProps={{
+                                                        min: 1,
+                                                        max: 10
+                                                    }}
                                                     onChange={this.handleGuestsChange}
                                                     type="number"
                                                     fullWidth
                                                     helperText={this.state.message3}
-                                                    error={this.state.error3}
-                                                />
+                                                    error={this.state.error3} />
                                                 <br />
                                                 <br />
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={this.handleNext}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                    disabled={this.state.guestsCorrect}
-
-                                                >
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}
+                                                    disabled={this.state.guestsCorrect}>
                                                     Next
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -531,32 +604,54 @@ class BookStepper extends React.Component {
                                     <StepLabel>Confirm</StepLabel>
                                     <StepContent>
                                         <Typography>Just to confirm, this is your booking:
-                            <br />
-                                            <b>Name:</b> {this.state.name}<br />
-                                            <b>Email:</b> {this.state.email}<br /><br />
-                                            <b>From:</b> {this.state.fromDate.format('YYYY-MM-DD')}<br />
-                                            <b>To:</b> {this.state.toDate.format('YYYY-MM-DD')}<br />
-                                            <b>With:</b> {this.state.guests} guest(s)<br />
+                                            <br />
+                                            <b>Name:</b>
+                                            {this.state.name}<br />
+                                            <b>Email:</b>
+                                            {this.state.email}<br /><br />
+                                            <b>From:</b>
+                                            {this
+                                                .state
+                                                .fromDate
+                                                .format('YYYY-MM-DD')}<br />
+                                            <b>To:</b>
+                                            {this
+                                                .state
+                                                .toDate
+                                                .format('YYYY-MM-DD')}<br />
+                                            <b>With:</b>
+                                            {this.state.guests}
+                                            guest(s)<br />
                                             <hr></hr>
                                             <b>Total:</b>
                                             <div>
-                                                {this.state.weekdays} weekdays x$50
-                                <br></br>
-                                                {this.state.weekends} weekends x$60
-                                <br></br>
+                                                {this.state.weekdays}
+                                                weekdays x$50
+                                                <br></br>
+                                                {this.state.weekends}
+                                                weekends x$60
+                                                <br></br>
                                                 =${this.state.cost}
                                             </div>
                                         </Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={() => { this.handleNext(); this.book() }}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                >
+                                                    onClick={() => {
+                                                        this.handleNext();
+                                                        this.book()
+                                                    }}
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}>
                                                     Confirm
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -565,20 +660,26 @@ class BookStepper extends React.Component {
                                     <StepLabel>Finish</StepLabel>
                                     <StepContent>
                                         <Typography>
-                                            Your booking is in our calendar. You should receive a confirmation email shortly with your booking number and payment details.
-                            <br></br>
+                                            Your booking is in our calendar. You should receive a confirmation email shortly
+                                            with your booking number and payment details.
+                                            <br></br>
                                             We hope you enjoy your stay!
-                        </Typography>
-                                        <div style={{ marginBottom: '8px' }}>
+                                        </Typography>
+                                        <div
+                                            style={{
+                                                marginBottom: '8px'
+                                            }}>
                                             <div>
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={this.handleNext}
-                                                    style={{ marginTop: '4px', marginRight: '4px' }}
-                                                >
+                                                    style={{
+                                                        marginTop: '4px',
+                                                        marginRight: '4px'
+                                                    }}>
                                                     Finish
-                                </Button>
+                                                </Button>
                                             </div>
                                         </div>
                                     </StepContent>
@@ -586,6 +687,8 @@ class BookStepper extends React.Component {
                             </Stepper>
                         </div>
                     </div>
-                </MediaQuery></div>)
+                </MediaQuery>
+            </div>
+        )
     }
 }

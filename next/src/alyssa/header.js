@@ -56,7 +56,7 @@ var menuItemStyleLeft = {
     paddingRight: '16px',
     fontFamily: 'Rock Salt, cursive',
     fontSize: '20px',
-    width: '110px'
+    width: '150px'
 
 
 }
@@ -185,8 +185,11 @@ export default class Header extends React.Component {
                     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet"></link>
                     <link href="https://fonts.googleapis.com/css?family=Cedarville+Cursive" rel="stylesheet"></link>
                     <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet"></link>
+                    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"></link>
+                    <title>ArtByA</title>
+
                 </Head>
-                <MediaQuery maxDeviceWidth={525}>
+                <MediaQuery maxWidth={525}>
 
                     <header>
                         <SwipeableDrawer
@@ -238,15 +241,12 @@ export default class Header extends React.Component {
                                 <div style={menuItemStyleLeftMobile}>
                                     Alyssa C.
                             </div>
-                                <Sharebutton directionStyles={menuItemStyleRightMobile}></Sharebutton>
+                                <Sharebutton directionStyles={menuItemStyleRight}></Sharebutton>
                             </Toolbar>
                         </AppBar>
                     </header >
                 </MediaQuery>
-                <MediaQuery minDeviceWidth={526}>
-
-
-
+                <MediaQuery minWidth={526}>
                     <header>
                         <AppBar style={appBarStyles}>
                             <Toolbar style={appBarStyles}>

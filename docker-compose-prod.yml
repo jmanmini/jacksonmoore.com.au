@@ -8,6 +8,10 @@ services:
     image: registry.gitlab.com/jmanmini/jacksonmoore-com-au/nginx
     labels:
       com.centurylinklabs.watchtower.enable: "true"
+  next:
+    image: registry.gitlab.com/jmanmini/jacksonmoore-com-au/next
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
   watchtower:
     image: v2tec/watchtower
     environment:
