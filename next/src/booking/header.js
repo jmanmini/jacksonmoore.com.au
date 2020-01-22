@@ -1,24 +1,28 @@
 import React from 'react'
 import {
-    AppBar, Toolbar,
-    Button, IconButton,
+    AppBar,
+    Toolbar,
+    Button,
+    IconButton,
     SwipeableDrawer,
-    List, ListItem, ListItemIcon, ListItemText,
-    Menu, MenuItem
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import {
-    Home,
-    CalendarToday
-} from "@material-ui/icons";
+import { Home, CalendarToday } from "@material-ui/icons";
 import Link from 'next/link'
 import MenuIcon from '@material-ui/icons/Menu'
 import firebase from 'firebase/app';
 import 'firebase/auth'
+import Head from 'next/head'
 var linkStyles = {
     textDecoration: 'none',
     textAlign: 'center',
-    color: 'black',
+    color: 'black'
 }
 var appBarStyles = {
     boxShadow: 'none',
@@ -31,10 +35,10 @@ var appBarStyles = {
     padding: '0px'
 }
 var toolBar1 = {
-    flexGrow: 1,
+    flexGrow: 1
 }
 var listStyles = {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'Roboto, sans-serif'
 }
 var menuItemStyleLeft = {
 
@@ -44,7 +48,6 @@ var menuItemStyleLeft = {
     fontFamily: 'Roboto, sans-serif',
     fontSize: '20px',
     width: '110px'
-
 
 }
 var menuItemStyleLeftMobile = {
@@ -56,7 +59,6 @@ var menuItemStyleLeftMobile = {
     fontSize: '20px',
     width: '110px',
     flexGrow: 2
-
 
 }
 var menuItemStyleRight = {
@@ -81,9 +83,15 @@ var buttonStyles = {
 export default class Header extends React.Component {
     constructor() {
         super();
-        this.login = this.login.bind(this)
-        this.logout = this.logout.bind(this)
-        this.handleResize = this.handleResize.bind(this)
+        this.login = this
+            .login
+            .bind(this)
+        this.logout = this
+            .logout
+            .bind(this)
+        this.handleResize = this
+            .handleResize
+            .bind(this)
         this.state = {
             open: false,
             openMenu: false,
@@ -110,34 +118,34 @@ export default class Header extends React.Component {
             });
         }
 
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ user, photoURL: user.photoURL });
-            }
-        })
+        firebase
+            .auth()
+            .onAuthStateChanged((user) => {
+                if (user) {
+                    this.setState({ user, photoURL: user.photoURL });
+                }
+            })
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize);
     }
     login() {
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+        firebase
+            .auth()
+            .signInWithRedirect(new firebase.auth.GoogleAuthProvider())
             .then((result) => {
                 const user = result.user;
-                this.setState({
-                    user,
-                    photoURL: user.photoURL
-                });
+                this.setState({ user, photoURL: user.photoURL });
                 console.log(user)
             });
     }
     logout() {
 
-        firebase.auth().signOut()
+        firebase
+            .auth()
+            .signOut()
             .then(() => {
-                this.setState({
-                    user: null,
-                    photoURL: 'https://wths.hope.edu/wp-content/uploads/2017/04/profile-placeholder.png'
-                });
+                this.setState({ user: null, photoURL: 'https://wths.hope.edu/wp-content/uploads/2017/04/profile-placeholder.png' });
             });
 
     }
@@ -145,28 +153,43 @@ export default class Header extends React.Component {
         const ListItemTextStyled = withStyles({
             primary: {
                 fontFamily: 'Roboto, sans-serif'
-            },
+            }
         })(ListItemText);
         return (
             <header >
+                <Head>
+                    <title>Anglsea Booking</title>
+                    <meta charSet="utf-8" />
+                    <meta
+                        name="viewport"
+                        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+                    <link
+                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
+                        rel="stylesheet"></link>
+                </Head>
                 <SwipeableDrawer
                     anchor='left'
                     open={this.state.open}
                     onClose={() => this.setState({ open: false })}
-                    onOpen={() => this.setState({ open: true })}
-                >
+                    onOpen={() => this.setState({ open: true })}>
                     <div>
                         <List>
-                            <Link href='/booking' style={linkStyles}>
-                                <ListItem button onClick={() => this.setState({ open: false })}>
+                            <Link href='/booking'>
+                                <ListItem
+                                    button
+                                    onClick={() => this.setState({ open: false })}
+                                    style={linkStyles}>
                                     <ListItemIcon>
                                         <Home />
                                     </ListItemIcon>
                                     <ListItemTextStyled primary="Home" />
                                 </ListItem>
                             </Link>
-                            <Link href='/booking/book' style={linkStyles}>
-                                <ListItem button onClick={() => this.setState({ open: false })}>
+                            <Link href='/booking/book'>
+                                <ListItem
+                                    button
+                                    onClick={() => this.setState({ open: false })}
+                                    style={linkStyles}>
                                     <ListItemIcon>
                                         <CalendarToday />
                                     </ListItemIcon>
@@ -178,30 +201,50 @@ export default class Header extends React.Component {
                 </SwipeableDrawer>
                 <AppBar style={appBarStyles}>
                     <Toolbar style={appBarStyles}>
-                        <div style={{
-                            paddingLeft: '8px',
-                            paddingRight: '8px',
-                        }}>
-                            <IconButton color="inherit" aria-label="Menu" onClick={() => this.setState({ open: true })}>
+                        <div
+                            style={{
+                                paddingLeft: '8px',
+                                paddingRight: '8px'
+                            }}>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Menu"
+                                onClick={() => this.setState({ open: true })}>
                                 <MenuIcon />
                             </IconButton>
                         </div>
-                        <div style={menuItemStyleLeftMobile}>
-                        </div>
-                        {this.state.user ?
-                            <Button onClick={this.logout}>Log Out</Button>
-                            :
-                            <Button onClick={this.login} style={{ marginRight: '8px' }}>Log In</Button>
-
+                        <div style={menuItemStyleLeftMobile}></div>
+                        {this.state.user
+                            ? <Button onClick={this.logout}>Log Out</Button>
+                            : <Button
+                                onClick={this.login}
+                                style={{
+                                    marginRight: '8px'
+                                }}>Log In</Button>
                         }
-                        {this.state.user ?
-                            <img src={this.state.photoURL} style={{ width: '48px', height: '48px', borderRadius: '50%', margin: '8px', display: 'inline' }}></img>
-                            :
-                            <img src={this.state.photoURL} style={{ width: '48px', height: '48px', borderRadius: '50%', margin: '8px', display: 'none' }}></img>
-
+                        {this.state.user
+                            ? <img
+                                src={this.state.photoURL}
+                                style={{
+                                    width: '48px',
+                                    height: '48px',
+                                    borderRadius: '50%',
+                                    margin: '8px',
+                                    display: 'inline'
+                                }}></img>
+                            : <img
+                                src={this.state.photoURL}
+                                style={{
+                                    width: '48px',
+                                    height: '48px',
+                                    borderRadius: '50%',
+                                    margin: '8px',
+                                    display: 'none'
+                                }}></img>
                         }
                     </Toolbar>
                 </AppBar>
-            </header >)
+            </header >
+        )
     }
 }

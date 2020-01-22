@@ -7,12 +7,9 @@
   "license": "MIT",
   "homepage": "https://jacksonmoore.com.au/",
   "scripts": {
-    "build": "webpack --mode production",
-    "deploy": "webpack --mode production && git add * && git commit -m \"Auto commit on %date%\" && git push origin master",
-    "start:dev": "webpack-dev-server --mode=none --port 80 --hot --host 0.0.0.0",
-    "start:next": "set NODE_ENV=production && next start",
-    "start:devnext": "next",
-    "build:next": "set NODE_ENV=production && next build"
+    "start": "next start",
+    "start:dev": "next",
+    "build": "next build"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
