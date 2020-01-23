@@ -16,7 +16,7 @@ compose-up:
     - docker ps | grep nginx
     - docker exec nginx apk add --update curl
     - docker exec nginx curl -sSk -D - "localhost/" | tac | tac | grep 301
-    - docker exec nginx curl -sSk -D - "https://localhost/work/" | tac | tac | grep 200
+    - docker exec nginx curl -sSk -D - "https://localhost/work" | tac | tac | grep 200
     - docker exec nginx curl -sSk -D - "https://localhost/api/" | tac | tac | grep 403
 registry:
   stage: deploy
