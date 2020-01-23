@@ -3,6 +3,12 @@
 [![pipeline status](https://gitlab.com/jmanmini/jacksonmoore-com-au/badges/master/pipeline.svg)](https://gitlab.com/jmanmini/jacksonmoore-com-au/commits/master)
 
 ## TODO
+See issues list 'To Do'
+
+## ~~TODO~~
+
+<details>
+ <summary>Old TODO</summary>
 
 - [x] Migrate dev.jacksonmoore.com.au to jacksonmoore.com.au
 - [x] Publish the repo to docker hub (private)
@@ -15,5 +21,6 @@
 - [x] Move to gitlab
 - [x] Ditch Docker Hub
 - [x] Ditch TavisCI
-- [ ] Optimize Webpack Builds
-- [ ] Move to NextJS/Gatsby
+- [x] Optimize Webpack Builds
+
+</details>
