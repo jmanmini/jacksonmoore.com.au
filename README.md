@@ -1,6 +1,6 @@
 # jacksonmoore.com.au
 
-[![pipeline status](https://gitlab.com/jmanmini/jacksonmoore-com-au/badges/master/pipeline.svg)](https://gitlab.com/jmanmini/jacksonmoore-com-au/commits/master)
+![Main Workflow](https://github.com/jmanmini/jacksonmoore.com.au/workflows/ci/badge.svg)
 
 ## TODO
 See issues list 'To Do'
