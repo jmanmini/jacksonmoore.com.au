@@ -32,4 +32,4 @@ jobs:
           file: ./api/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: jmanmini/jacksonmoore.com.au/api:latest
+          tags: jmanmini/jacksonmoore.com.au.api:latest
