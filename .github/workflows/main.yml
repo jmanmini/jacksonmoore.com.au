@@ -20,6 +20,7 @@ jobs:
           docker exec nginx curl -sSk -D - "https://localhost/api/" | tac | tac | grep 403
           docker exec nginx curl -sSk -D - "https://localhost/work" | tac | tac | grep 200
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -57,4 +58,4 @@ jobs:
           file: ./next/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ghcr.io/jmanmini/jacksonmoore.com.au.api:latest
+          tags: ghcr.io/jmanmini/jacksonmoore.com.au.next:latest
