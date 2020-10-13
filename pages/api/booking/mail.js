@@ -12,7 +12,10 @@ const mailTransport = nodemailer.createTransport({
         pass: 'asrnjrmhrlmfqjng',
     },
 });
-
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://booking-7639c.firebaseio.com"
+});
 export default (request, response) => {
     console.log(Date(new Date), request.body)
     var token = request.body.token
