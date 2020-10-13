@@ -749,7 +749,12 @@ export default (request, response) => {
 </body></html>`,
                         };
                         if (name && from_date && to_date && guests && booking_number && cost) {
-                            mailTransport.sendMail(mailOptions)
+                            mailTransport.sendMail(mailOptions).catch((error) => {
+                                console.log(name, email, booking_number, token)
+                                console.log(error)
+                                response.status(400).send("Bad Request")
+                                console.log('Bad request made')
+                            })
                             response.status(200).send("Mail Sent")
                             console.log('Email sent')
                         } else {
