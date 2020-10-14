@@ -15,7 +15,7 @@ const mailTransport = nodemailer.createTransport({
         pass: process.env.MAIL_PASS//mailAccount.pass
     },
 });
-if (!admin.apps) {
+if (!admin.apps || process.env.NODE_ENV === "production") {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         databaseURL: "https://booking-7639c.firebaseio.com"
