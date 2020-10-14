@@ -3,43 +3,50 @@ var bodyParser = require('body-parser')
 var admin = require("firebase-admin");
 const nodemailer = require("nodemailer")
 
-var serviceAccount = require("./admin_sdk.json");
-
+if (process.env.NODE_ENV === "development") {
+    const envs = require('dotenv').config()
+}
+var serviceAccount = JSON.parse(Buffer.from(process.env.ADMIN_SDK, 'base64').toString('ascii')); //require("./admin_sdk.json");
+var mailAccount = require("./mail.json");
 const mailTransport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'jacksonsamuelmoore@gmail.com',
-        pass: 'asrnjrmhrlmfqjng',
+        user: process.env.MAIL_USER,//mailAccount.user,
+        pass: process.env.MAIL_PASS//mailAccount.pass
     },
 });
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://booking-7639c.firebaseio.com"
-});
+if (!admin.apps) {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://booking-7639c.firebaseio.com"
+    });
+}
+
 export default (request, response) => {
     console.log(Date(new Date), request.body)
     var token = request.body.token
-    admin.auth().verifyIdToken(token)
-        .then(function (decodedToken) {
-            var uid = decodedToken.uid;
-            admin.auth().getUser(uid)
-                .then(function (userRecord) {
-                    console.log("Successfully fetched user data:", userRecord.toJSON().displayName);
-                    console.log(uid)
-                    var name = userRecord.toJSON().displayName
-                    var email = userRecord.toJSON().email
-                    var booking_number = request.body.key
-                    admin.database().ref("bookings/" + booking_number).once("value").then((snapshot) => {
-                        var from_date = snapshot.child("from").val();
-                        var to_date = snapshot.child("to").val();
-                        var guests = snapshot.child("guests").val();
-                        var cost = snapshot.child("cost").val();
-                        const mailOptions = {
-                            from: '"Anglsea Booking" <jacksonsamuelmoore@gmail.com>',
-                            to: email,
-                            bcc: "jacksonsamuelmoore@gmail.com",
-                            subject: 'Booking Confirmation',
-                            html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    if (token) {
+        admin.auth().verifyIdToken(token)
+            .then(function (decodedToken) {
+                var uid = decodedToken.uid;
+                admin.auth().getUser(uid)
+                    .then(function (userRecord) {
+                        console.log("Successfully fetched user data:", userRecord.toJSON().displayName);
+                        console.log(uid)
+                        var name = userRecord.toJSON().displayName
+                        var email = userRecord.toJSON().email
+                        var booking_number = request.body.key
+                        admin.database().ref("bookings/" + booking_number).once("value").then((snapshot) => {
+                            var from_date = snapshot.child("from").val();
+                            var to_date = snapshot.child("to").val();
+                            var guests = snapshot.child("guests").val();
+                            var cost = snapshot.child("cost").val();
+                            const mailOptions = {
+                                from: '"Anglsea Booking" <jacksonsamuelmoore@gmail.com>',
+                                to: email,
+                                bcc: "jacksonsamuelmoore@gmail.com",
+                                subject: 'Booking Confirmation',
+                                html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0040)file:///D:/jacks/Desktop/mail%202.0.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
@@ -747,41 +754,46 @@ export default (request, response) => {
 
 
 </body></html>`,
-                        };
-                        if (name && from_date && to_date && guests && booking_number && cost) {
-                            mailTransport.sendMail(mailOptions).then((success) => {
-                                response.status(200).send("Mail Sent")
-                                console.log('Email sent')
-                                console.log(success)
-                            }).catch((error) => {
-                                console.log(name, email, booking_number, token)
-                                console.log(error)
+                            };
+                            if (name && from_date && to_date && guests && booking_number && cost) {
+                                mailTransport.sendMail(mailOptions).then((success) => {
+                                    response.status(200).send("Mail Sent")
+                                    console.log('Email sent')
+                                    console.log(success)
+                                }).catch((error) => {
+                                    console.log(name, email, booking_number, token)
+                                    console.log(error)
+                                    response.status(400).send("Bad Request")
+                                    console.log('Bad request made')
+                                })
+
+                            } else {
+                                console.log(name, email, from_date, to_date, guests, booking_number, cost, token)
                                 response.status(400).send("Bad Request")
                                 console.log('Bad request made')
-                            })
-
-                        } else {
-                            console.log(name, email, from_date, to_date, guests, booking_number, cost, token)
+                            }
+                        }).catch((error) => {
+                            console.log(name, email, booking_number, token)
+                            console.log(error)
                             response.status(400).send("Bad Request")
-                            console.log('Bad request made')
-                        }
+                            console.log('Bad request made (Get reference failed)')
+                        })
                     }).catch((error) => {
-                        console.log(name, email, booking_number, token)
+                        console.log(uid, token)
                         console.log(error)
                         response.status(400).send("Bad Request")
-                        console.log('Bad request made')
+                        console.log('Bad request made (Get user failed)')
                     })
-                }).catch((error) => {
-                    console.log(uid, token)
-                    console.log(error)
-                    response.status(400).send("Bad Request")
-                    console.log('Bad request made')
-                })
-        }).catch((error) => {
-            console.log(token)
-            console.log(error)
-            response.status(400).send("Bad Request")
-            console.log('Bad request made')
-        })
+            }).catch((error) => {
+                console.log(token)
+                console.log(error)
+                response.status(400).send("Bad Request")
+                console.log('Bad request made (Verify token failed)')
+            })
+    }
+    else {
+        response.status(400).send("Bad Request")
+        console.log('Bad request made (No token given)')
+    }
 
 }
