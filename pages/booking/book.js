@@ -606,16 +606,16 @@ class BookStepper extends React.Component {
                                         <Typography>Just to confirm, this is your booking:
                                             <br />
                                             <b>Name:</b>
-                                            {this.state.name}<br />
+                                            {" " + this.state.name}<br />
                                             <b>Email:</b>
-                                            {this.state.email}<br /><br />
+                                            {" " + this.state.email}<br /><br />
                                             <b>From:</b>
-                                            {this
+                                            {" " + this
                                                 .state
                                                 .fromDate
                                                 .format('YYYY-MM-DD')}<br />
-                                            <b>To:</b>
-                                            {this
+                                            <b>Till:</b>
+                                            {" " + this
                                                 .state
                                                 .toDate
                                                 .format('YYYY-MM-DD')}<br />
@@ -625,11 +625,11 @@ class BookStepper extends React.Component {
                                             <hr></hr>
                                             <b>Total:</b>
                                             <div>
-                                                {this.state.weekdays}
-                                                weekdays x$50
+                                                {this.state.weekdays + " "}
+                                                weekday(s) x$50
                                                 <br></br>
-                                                {this.state.weekends}
-                                                weekends x$60
+                                                {this.state.weekends + " "}
+                                                weekend(s) x$60
                                                 <br></br>
                                                 =${this.state.cost}
                                             </div>
