@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "development") {
     const envs = require('dotenv').config()
 }
 var serviceAccount = JSON.parse(Buffer.from(process.env.ADMIN_SDK, 'base64').toString('ascii')); //require("./admin_sdk.json");
-var mailAccount = require("./mail.json");
+//var mailAccount = require("./mail.json");
 const mailTransport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
