@@ -408,7 +408,7 @@ class BookStepper extends React.Component {
                                                 .toDate
                                                 .format('YYYY-MM-DD')}<br />
                                             <b>With:</b>
-                                            {this.state.guests}
+                                            {this.state.guests + " "}
                                             guest(s)<br />
                                             <hr></hr>
                                             <b>Total:</b>
