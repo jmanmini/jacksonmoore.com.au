@@ -1,0 +1,15 @@
+{
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/work"
+        },
+        {
+            "src": "/api/booking/mail",
+            "methods": [
+                "GET"
+            ],
+            "status": 403
+        }
+    ]
+}
