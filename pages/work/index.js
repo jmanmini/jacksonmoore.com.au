@@ -1,15 +1,8 @@
 import React from 'react'
-import { render, hydrate } from 'react-dom'
-import Card from '@material-ui/core/Card';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import ReactGA from 'react-ga';
+import { Instagram, Twitter, LinkedIn } from '@material-ui/Icons';
 import Head from 'next/head'
 const theme = createMuiTheme({
     typography: {
@@ -77,7 +70,7 @@ function App() {
                                     fontFamily: 'indiference',
                                     color: 'rgb(34, 65, 98)'
                                 }}>
-                                I provide babysitting, tech help and kids coding classes
+                                This page is undergoing so redevelopment to make it less stale and out of date.
                             </p>
                             <h3
                                 style={{
@@ -85,7 +78,7 @@ function App() {
                                     fontFamily: 'spartan',
                                     color: 'rgb(255, 198, 80)'
                                 }}>
-                                Contact me
+                                In the mean time, Contact me!
                             </h3>
                             <p
                                 style={{
@@ -93,210 +86,25 @@ function App() {
                                     fontFamily: 'indiference',
                                     color: 'rgb(34, 65, 98)'
                                 }}>
-                                Phone: +44737 860 3733<br />
                                 Email:
-                                <a href='mailto:jackson@ckjom.com'>jackson@ckjom.com</a>
+                                <a href='mailto:jacksonsamuelmoore@gmail.com'> jacksonsamuelmoore@gmail.com</a>
+
                             </p>
-                            <h3
-                                style={{
-                                    fontSize: '30px',
-                                    fontFamily: 'spartan',
-                                    color: 'rgb(255, 198, 80)'
-                                }}>Scroll for details &darr;</h3>
+                            <p>
+                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://www.instagram.com/jacksonsamuelmoore/' target='_blank' rel='noopener noreferrer'>
+                                    <Instagram />
+                                </a>
+                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://twitter.com/jacksonsamuelmoore' target='_blank' rel='noopener noreferrer'>
+                                    <Twitter />
+                                </a>
+                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://www.linkedin.com/in/jacksonsamuelmoore/' target='_blank' rel='noopener noreferrer'>
+                                    <LinkedIn />
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div style={{
-                    minHeight: '100vh'
-                }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'flex-start',
-                            width: '100%',
-                            height: '100vh',
-                            justifyContent: 'center',
-                            flexWrap: 'wrap'
-                        }}>
-                        <Card
-                            style={{
-                                maxWidth: '345px',
-                                backgroundColor: 'white',
-                                zIndex: '2',
-                                margin: '8px',
-                                WebkitTransform: 'translate3d(0,0,0)'
-                            }}>
-                            <CardActionArea>
-                                < CardMedia component='img' image='./work/babysitting.webp' title="Babysitting" height="230" />
-                                <CardContent
-                                    style={{
-                                        paddingBottom: '64px'
-                                    }}>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                        style={{
-                                            fontFamily: 'spartan',
-                                            color: 'rgb(255, 198, 80)'
-                                        }}>
-                                        Babysitting
-                                    </Typography>
-                                    <Typography
-                                        style={{
-                                            fontFamily: 'spartan',
-                                            marginBottom: 12
-                                        }}
-                                        color="textSecondary">
-                                        £5/Hour
-                                    </Typography>
-                                    <Typography
-                                        component="p"
-                                        style={{
-                                            fontFamily: 'indiference'
-                                        }}>
-                                        I can take your kids to the park if you need to work or look after them in the
-                                        evening if you need a night out. I have two younger brothers and experience in
-                                        looking after them and other children
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button
-                                    size="small"
-                                    style={{
-                                        color: '#224162'
-                                    }}>
-                                    <a
-                                        style={{
-                                            color: 'rgb(255, 198, 80)',
-                                            textDecoration: 'none '
-                                        }}
-                                        href='mailto:jackson@ckjom.com'>Enquire</a>
-                                </Button>
-                            </CardActions>
-                        </Card>
-                        <Card
-                            style={{
-                                maxWidth: '345px',
-                                backgroundColor: 'white',
-                                zIndex: '2',
-                                margin: '8px',
-                                WebkitTransform: 'translate3d(0,0,0)'
-                            }}>
-                            <CardActionArea>
-                                <CardMedia
-                                    component='img'
-                                    image='./work/tech-help.webp'
-                                    title="Tech Help"
-                                    height="230" />
-                                <CardContent>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                        style={{
-                                            fontFamily: 'spartan',
-                                            color: 'rgb(255, 198, 80)'
-                                        }}>
-                                        Tech Help
-                                    </Typography>
-                                    <Typography
-                                        style={{
-                                            fontFamily: 'spartan',
-                                            marginBottom: 12
-                                        }}
-                                        color="textSecondary">
-                                        £5/Hour
-                                    </Typography>
-                                    <Typography
-                                        component="p"
-                                        style={{
-                                            fontFamily: 'indiference'
-                                        }}>
-                                        Computer running slowly? Unorganised files? Need help learning an app or
-                                        program? Want your phone and computer in sync? Would like to understand the
-                                        cloud? Want to backup your files? I have a passion for computers, I'm my
-                                        family's tech manager and my grandparents tech support
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button
-                                    size="small"
-                                    style={{
-                                        color: '#224162'
-                                    }}>
-                                    <a
-                                        style={{
-                                            color: 'rgb(255, 198, 80)',
-                                            textDecoration: 'none '
-                                        }}
-                                        href='mailto:jackson@ckjom.com'>Enquire</a>
-                                </Button>
-                            </CardActions>
-                        </Card>
-                        <Card
-                            style={{
-                                maxWidth: '345px',
-                                backgroundColor: 'white',
-                                zIndex: '2',
-                                margin: '8px',
-                                WebkitTransform: 'translate3d(0,0,0)'
-                            }}>
-                            <CardActionArea>
-                                <CardMedia component='img' image='./work/coding.webp' title="Coding" height="230" />
-                                <CardContent
-                                    style={{
-                                        paddingBottom: '40px'
-                                    }}>
-                                    <Typography
-                                        gutterBottom
-                                        variant="h5"
-                                        component="h2"
-                                        style={{
-                                            fontFamily: 'spartan',
-                                            color: 'rgb(255, 198, 80)'
-                                        }}>
-                                        Kids Coding Classes
-                                    </Typography>
-                                    <Typography
-                                        style={{
-                                            fontFamily: 'spartan',
-                                            marginBottom: 12
-                                        }}
-                                        color="textSecondary">
-                                        £5/Hour
-                                    </Typography>
-                                    <Typography
-                                        component="p"
-                                        style={{
-                                            fontFamily: 'indiference'
-                                        }}>
-                                        Is you child interested in coding or computer science? How about building
-                                        websites or apps? I offer lessons in many programming languages for kids aged
-                                        7-12, and have much experience building apps and websites myself
 
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button
-                                    size="small"
-                                    style={{
-                                        color: '#224162'
-                                    }}>
-                                    <a
-                                        style={{
-                                            color: 'rgb(255, 198, 80)',
-                                            textDecoration: 'none '
-                                        }}
-                                        href='mailto:jackson@ckjom.com'>Enquire</a>
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </div>
-                </div >
             </ThemeProvider>
         </div >
     )
