@@ -1,7 +1,7 @@
 import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Instagram, Twitter, LinkedIn } from '@material-ui/Icons';
+import { Instagram, Twitter, LinkedIn } from '@material-ui/icons';
 import Head from 'next/head'
 const theme = createMuiTheme({
     typography: {
