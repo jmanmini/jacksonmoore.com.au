@@ -94,10 +94,10 @@ function App() {
                                 <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://www.instagram.com/jacksonsamuelmoore/' target='_blank' rel='noopener noreferrer'>
                                     <Instagram />
                                 </a>
-                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://twitter.com/jacksonsamuelmoore' target='_blank' rel='noopener noreferrer'>
+                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://twitter.com/jacksonsmoore' target='_blank' rel='noopener noreferrer'>
                                     <Twitter />
                                 </a>
-                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://www.linkedin.com/in/jacksonsamuelmoore/' target='_blank' rel='noopener noreferrer'>
+                                <a style={{ textDecoration: "none", color: "rgb(34, 65, 98)" }} href='https://www.linkedin.com/in/jackson-moore-364703205/' target='_blank' rel='noopener noreferrer'>
                                     <LinkedIn />
                                 </a>
                             </p>
