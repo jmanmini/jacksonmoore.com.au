@@ -1,6 +1,5 @@
 import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Instagram, Twitter, LinkedIn } from '@material-ui/Icons';
 import Head from 'next/head'
@@ -17,7 +16,7 @@ function App() {
         }}>
             <Head>
                 <title>Jackson Moore</title>
-                <meta name="description" content="Jackson Moore: Babysitting, Tech Help and Kids Coding Classes in London" />
+                <meta name="description" content="Jackson Moore: Web Developer" />
             </Head>
             <style global="true" jsx>
                 {
@@ -70,7 +69,7 @@ function App() {
                                     fontFamily: 'indiference',
                                     color: 'rgb(34, 65, 98)'
                                 }}>
-                                This page is undergoing so redevelopment to make it less stale and out of date.
+                                This page is undergoing some redevelopment to make it less stale and out of date.
                             </p>
                             <h3
                                 style={{
