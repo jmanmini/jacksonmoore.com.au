@@ -77,7 +77,7 @@ function App() {
                                     fontFamily: 'spartan',
                                     color: 'rgb(255, 198, 80)'
                                 }}>
-                                In the mean time, Contact me!
+                                In the mean time, contact me:
                             </h3>
                             <p
                                 style={{
