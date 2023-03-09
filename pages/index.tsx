@@ -1,10 +1,20 @@
-import { Button, Card, Container, Grid, Spacer, Text } from "@nextui-org/react"
+import { Link, Card, Col, Container, Grid, Spacer, Text } from "@nextui-org/react"
 import Head from "next/head"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTwitter, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
-import { faMailBulk } from '@fortawesome/free-solid-svg-icons'
+import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { League_Spartan } from 'next/font/google';
 import dynamic from "next/dynamic";
+import instgram from "../public/instagram.jpeg";
+import github from "../public/coding.jpg";
+import linkedin from "../public/linkedin.png";
+import Image from "next/image"
+import styles from '../src/styles.module.css';
 const SvgEl = dynamic(import("../src/svgEl"));
+
+const leagueSpartan = League_Spartan({
+    subsets: ['latin'],
+    display: 'swap',
+});
 function App() {
     return (
         <div>
@@ -12,56 +22,110 @@ function App() {
                 <title>Jackson Moore</title>
                 <meta name="description" content="Jackson Moore: Web Developer" />
             </Head>
-            <style jsx>
-                {
-                    ` @font-face {
-                        font-family: spartan;
-                        src: url("./work/LeagueSpartan-Bold.otf");
-                        font-display: swap; 
-                    }
-                    @font-face {
-                        font-family: indiference;
-                        src: url("./work/GlacialIndifference-Italic.otf");
-                        font-display: swap; 
-                    }
-                     `
-                }</style>
 
             <SvgEl></SvgEl>
-            <Container lg>
+            <Container lg css={{ zIndex: 1 }}>
 
                 <Grid.Container gap={2} justify="center" alignItems="center" css={{ height: "100vh" }}>
                     <div>
 
                         <Text h1 size={100} css={{
-                            textGradient: "90deg, rgba(33,63,95,1) 59%, rgba(255,198,80,1) 100%",
+                            textGradient: "90deg, rgba(33,63,95,1) 10%, rgba(255,198,80,1) 40%",
                             paddingRight: "10px"
-                        }}>Jackson Moore</Text>
-                        <Card isHoverable>
-                            <Card.Body>
-                                <Text b>
-                                    This page is undergoing some redevelopment to make it less stale and out of date.<br></br>
-                                </Text>
-                                <Text   >In the mean time, contact me</Text>
-                            </Card.Body>
-                            <Card.Divider></Card.Divider>
-                            <Card.Footer>
+                        }} className={leagueSpartan.className}>Jackson Moore</Text>
+                        <Text h2>
+                            Web Developer
+                        </Text>
+                        <Link isExternal color="text" href="mailto:jacksonsamuelmoore@gmail.com">jacksonsamuelmoore@gmail.com</Link>
 
 
-                                <Button auto onClick={() => window.location.href = "mailto:jacksonsamuelmoore@gmail.com"}><FontAwesomeIcon icon={faMailBulk}></FontAwesomeIcon></Button>
-                                <Spacer x={0.5}></Spacer>
-                                <Button auto onClick={() => window.location.href = "https://www.linkedin.com/in/jackson-moore-364703205/"}><FontAwesomeIcon icon={faLinkedin}></FontAwesomeIcon></Button>
-                                <Spacer x={0.5} ></Spacer>
-                                <Button auto onClick={() => window.location.href = "https://www.instagram.com/jacksonsamuelmoore/"}><FontAwesomeIcon icon={faInstagram}></FontAwesomeIcon></Button>
-                                <Spacer x={0.5}></Spacer>
 
-                                <Button auto onClick={() => window.location.href = "https://twitter.com/jacksonsmoore"}><FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon></Button>
-                            </Card.Footer>
-                        </Card>
+                        <Grid.Container gap={2} justify="center" style={{ paddingLeft: 0 }}>
+                            <Grid xs={12} sm={4}>
+                                <Card isHoverable isPressable onPress={() => { document.location = "https://instagram.com/jacksonsamuelmoore" }} css={{
+                                    height: '340px',
+                                    '&:hover': {
+                                        backdropFilter: 'blur(10px)',
+                                    },
+                                }}>
+                                    <Card.Header css={{ position: "absolute", zIndex: 1, top: 5, pointerEvents: 'none' }}>
+                                        <Col>
+                                            <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                                                Instagram
+                                            </Text>
+                                            <Text h4 color="white">
+                                                Photography
+                                            </Text>
+                                        </Col>
+                                    </Card.Header>
+                                    <Image src={instgram} alt={""}
+                                        style={{
+                                            objectFit: 'cover',
+                                        }}
+                                        placeholder="blur"
+                                        className={styles.darken}>
+                                    </Image>
+                                    <div className={styles.icon}>
+                                        <FontAwesomeIcon icon={faInstagram} size="4x" color="white" />
+                                    </div>
+                                </Card>
+                            </Grid>
+                            <Grid xs={12} sm={4}>
+                                <Card isHoverable isPressable onPress={() => { document.location = "https://github.com/jacksonsamuelmoore" }} css={{ height: '340px' }}>
+                                    <Card.Header css={{ position: "absolute", zIndex: 1, top: 5, pointerEvents: 'none' }} >
+                                        <Col>
+                                            <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                                                Gihtub
+                                            </Text>
+                                            <Text h4 color="white">
+                                                Projects
+                                            </Text>
+                                        </Col>
+                                    </Card.Header>
+                                    <Image src={github} alt={""}
+                                        style={{
+                                            objectFit: 'cover',
+                                        }}
+                                        placeholder="blur"
+                                        className={styles.darken}
+                                    >
+                                    </Image>
+                                    <div className={styles.icon}>
+                                        <FontAwesomeIcon icon={faGithub} size="4x" color="white" />
+                                    </div>
+                                </Card>
+                            </Grid>
+                            <Grid xs={12} sm={4}>
+                                <Card isHoverable isPressable onPress={() => { document.location = "https://www.linkedin.com/in/jacksonsamuelmoore/" }} css={{ height: '340px' }}>
+                                    <Card.Header css={{ position: "absolute", zIndex: 1, top: 5, pointerEvents: 'none' }}>
+                                        <Col>
+                                            <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+                                                LinkedIn
+                                            </Text>
+                                            <Text h4 color="white">
+                                                Experience
+                                            </Text>
+                                        </Col>
+                                    </Card.Header>
+                                    <Image src={linkedin} alt={""}
+                                        style={{
+                                            objectFit: 'cover',
+                                        }}
+                                        placeholder="blur"
+                                        className={styles.darken}
+                                    >
+                                    </Image>
+                                    <div className={styles.icon}>
+                                        <FontAwesomeIcon icon={faLinkedin} size="4x" color="white" />
+                                    </div>
+                                </Card>
+                            </Grid>
+                        </Grid.Container>
+
                     </div>
                 </Grid.Container>
             </Container>
-        </div>
+        </div >
     )
 }
 export default App

@@ -1,4 +1,5 @@
-import { NextUIProvider, createTheme } from '@nextui-org/react';
+import { createTheme, NextUIProvider } from "@nextui-org/react"
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 const theme = createTheme({
   type: "dark", // it could be "light" or "dark"
@@ -26,9 +27,17 @@ const theme = createTheme({
 
 function MyApp({ Component, pageProps }) {
   return (
-    <NextUIProvider theme={theme}>
-      <Component {...pageProps} />
-    </NextUIProvider>
+    <NextThemesProvider
+      defaultTheme="dark"
+      attribute="class"
+      value={{
+        dark: theme.className
+      }}
+    >
+      <NextUIProvider>
+        <Component {...pageProps} />
+      </NextUIProvider>
+    </NextThemesProvider>
   );
 }
 

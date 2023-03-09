@@ -1,0 +1,24 @@
+.darken:hover {
+    filter: brightness(0.4);
+}
+
+.darken {
+    transition: filter 300ms ease-out 100ms;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 300ms ease-out 100ms;
+}
+
+.darken:hover~.icon {
+    opacity: 1;
+}
+
+.icon {
+    pointer-events: none;
+}
