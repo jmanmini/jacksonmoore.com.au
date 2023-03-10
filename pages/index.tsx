@@ -9,6 +9,7 @@ import github from "../public/coding.jpg";
 import linkedin from "../public/linkedin.png";
 import Image from "next/image"
 import styles from '../src/styles.module.css';
+import Typewriter from 'typewriter-effect';
 const SvgEl = dynamic(import("../src/svgEl"));
 
 const leagueSpartan = League_Spartan({
@@ -21,20 +22,25 @@ function App() {
             <Head>
                 <title>Jackson Moore</title>
                 <meta name="description" content="Jackson Moore: Web Developer" />
+
             </Head>
-
             <SvgEl></SvgEl>
-            <Container lg css={{ zIndex: 1 }}>
-
+            <Container lg>
                 <Grid.Container gap={2} justify="center" alignItems="center" css={{ height: "100vh" }}>
-                    <div>
+                    <div className={styles.content}>
 
                         <Text h1 size={100} css={{
                             textGradient: "90deg, rgba(33,63,95,1) 10%, rgba(255,198,80,1) 40%",
                             paddingRight: "10px"
                         }} className={leagueSpartan.className}>Jackson Moore</Text>
                         <Text h2>
-                            Web Developer
+                            <Typewriter
+                                options={{
+                                    strings: ['Web Developer', 'Photographer', 'Student'],
+                                    autoStart: true,
+                                    loop: true,
+                                }}
+                            ></Typewriter>
                         </Text>
                         <Link isExternal color="text" href="mailto:jacksonsamuelmoore@gmail.com">jacksonsamuelmoore@gmail.com</Link>
 
@@ -128,4 +134,5 @@ function App() {
         </div >
     )
 }
+
 export default App

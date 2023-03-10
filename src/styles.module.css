@@ -22,3 +22,7 @@
 .icon {
     pointer-events: none;
 }
+
+.content {
+    z-index: 2;
+}
