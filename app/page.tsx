@@ -17,7 +17,7 @@ export default async function Page() {
             <div className="z-0 relative">
 
                 <div className="container mx-auto z-0 columns-1 px-6 pt-20">
-                    <h1 className="pb-8 text-transparent text-8xl font-extrabold font-[var(--font-league-spartan)] bg-clip-text bg-gradient-to-r from-blue from-20% to-yellow to-40%">Jackson Moore</h1>
+                    <h1 className="pb-8 text-transparent text-8xl font-bold font-[var(--font-league-spartan)] bg-clip-text bg-gradient-to-r from-blue from-20% to-yellow to-40%">Jackson Moore</h1>
                     <div className="text-white text-4xl pb-4">
                         <Suspense fallback={<div className="text-white text-4xl pb-4">Web Developer</div>}>
                             <ClientTypewriter></ClientTypewriter>
