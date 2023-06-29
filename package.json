@@ -12,9 +12,9 @@
     "build": "next build"
   },
   "devDependencies": {
-    "@types/node": "^18.6.2",
-    "@types/react": "^17.0.48",
-    "typescript": "^4.7.4"
+    "@types/node": "^18.16.18",
+    "@types/react": "^17.0.62",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "latest",
@@ -22,16 +22,18 @@
     "@fortawesome/free-regular-svg-icons": "latest",
     "@fortawesome/free-solid-svg-icons": "latest",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@nextui-org/react": "1.0.0-beta.12",
+    "autoprefixer": "^10.4.14",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "body-parser": "^1.20.0",
+    "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "dotenv": "^8.6.0",
-    "next": "^13.2.3",
-    "next-themes": "^0.2.1",
+    "framer-motion": "^10.12.17",
+    "next": "^13.4.7",
+    "postcss": "^8.4.24",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sharp": "^0.31.3",
-    "typewriter-effect": "^2.19.0"
+    "tailwindcss": "^3.3.2",
+    "typewriter-effect": "^2.20.1"
   }
 }
