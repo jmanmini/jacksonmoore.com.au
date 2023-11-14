@@ -24,13 +24,7 @@ export default async function Page() {
             Jackson Moore
           </h1>
           <div className="pb-4 text-4xl text-white">
-            <Suspense
-              fallback={
-                <div className="pb-4 text-4xl text-white">Web Developer</div>
-              }
-            >
-              <ClientTypewriter></ClientTypewriter>
-            </Suspense>
+            <ClientTypewriter></ClientTypewriter>
           </div>
           <a
             className="text-slate-300 transition duration-200 ease-in-out hover:text-slate-400 "
@@ -63,11 +57,13 @@ export default async function Page() {
                 alt="Picture of a tree in a pink sunset as taken by Jackson Moore"
                 fill={true}
                 className="rounded-2xl object-cover transition duration-300 ease-out group-hover:brightness-50"
+                priority={true}
+                placeholder="blur"
               />
             </a>
             <a
               className="group relative h-80 rounded-2xl"
-              href="https://instagram.com/jacksonsamuelmoore"
+              href="https://github.com/jacksonsamuelmoore"
             >
               <div className="absolute left-0 top-2 z-10 p-3">
                 <p className=" font- text-xs font-bold text-neutral-300">
@@ -85,11 +81,13 @@ export default async function Page() {
                 alt="Picture of a tree in a pink sunset as taken by Jackson Moore"
                 fill={true}
                 className="rounded-2xl object-cover transition duration-300 ease-out group-hover:brightness-50"
+                priority={true}
+                placeholder="blur"
               />
             </a>
             <a
               className="group relative h-80 rounded-2xl"
-              href="https://instagram.com/jacksonsamuelmoore"
+              href="https://www.linkedin.com/in/jacksonsamuelmoore/"
             >
               <div className="absolute left-0 top-2 z-10 p-3">
                 <p className=" font- text-xs font-bold text-neutral-300">
@@ -107,6 +105,8 @@ export default async function Page() {
                 alt="Picture of a tree in a pink sunset as taken by Jackson Moore"
                 fill={true}
                 className="rounded-2xl object-cover transition duration-300 ease-out group-hover:brightness-50"
+                priority={true}
+                placeholder="blur"
               />
             </a>
           </div>
